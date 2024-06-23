@@ -1,14 +1,10 @@
 # `conda rename`
 
-
-
 重命名现有环境。
 
 此命令通过名称 (-n/--name) 或其前缀 (-p/--prefix) 重命名 conda 环境。
 
 基础环境和当前活动环境无法重命名。
-
-
 
 ```
 usage: conda rename [-h] [-n ENVIRONMENT | -p PATH] [--force] [-d] destination
@@ -39,8 +35,6 @@ usage: conda rename [-h] [-n ENVIRONMENT | -p PATH] [--force] [-d] destination
 - -p, --prefix
 
   环境位置的完整路径（即前缀）。
-
-
 
 例子：
 

@@ -1,7 +1,5 @@
 ## [Create an instance](https://multipass.run/docs/create-an-instance#heading--create-an-instance)
 
-
-
 > See also: [`launch`](https://multipass.run/docs/launch-command), [`info`](https://multipass.run/docs/info-command)
 
 To create an instance with Multipass, execute:
@@ -27,11 +25,7 @@ Disk usage:     1.1G out of 4.7G
 Memory usage:   71.6M out of 985.4M
 ```
 
-
-
 ## [Create an instance with a specific image](https://multipass.run/docs/create-an-instance#heading--create-an-instance-with-a-specific-image)
-
-
 
 > See also: [`find`](https://multipass.run/docs/find-command), [`launch `](https://multipass.run/docs/launch-command), [`info`](https://multipass.run/docs/info-command)
 
@@ -83,11 +77,7 @@ Disk usage:     1.4G out of 4.7G
 Memory usage:   161.8M out of 971.2M
 ```
 
-
-
 ## [Create an instance with a custom name](https://multipass.run/docs/create-an-instance#heading--create-an-instance-with-a-custom-name)
-
-
 
 > See also: [`launch ... --name`](https://multipass.run/docs/launch-command)
 
@@ -98,11 +88,7 @@ multipass launch kinetic --name helpful-duck
 Launched: helpful-duck
 ```
 
-
-
 ## [Create an instance with custom CPU number, disk, and RAM](https://multipass.run/docs/create-an-instance#heading--create-an-instance-with-custom-cpu-number-disk-and-ram)
-
-
 
 > See also: [`launch ... --cpus ... --disk ... --memory ...`](https://multipass.run/docs/launch-command)
 
@@ -113,11 +99,7 @@ $ multipass launch --cpus 4 --disk 20G --memory 8G
 Launched: giving-catfish
 ```
 
-
-
 ## [Create an instance with primary status](https://multipass.run/docs/create-an-instance#heading--create-an-instance-with-primary-status)
-
-
 
 > See also: [`launch ... --name primary`](https://multipass.run/docs/launch-command)
 
@@ -130,11 +112,7 @@ Launched: primary
 
 See the [How to use the primary instance](https://multipass.run/docs/primary-instance) page for more information.
 
-
-
 ## [Create an instance with multiple network interfaces](https://multipass.run/docs/create-an-instance#heading--create-an-instance-with-multiple-network-interfaces)
-
-
 
 > See also: [`launch ... --network`](https://multipass.run/docs/launch-command)
 
@@ -175,11 +153,7 @@ In the example above, we got the following interfaces inside the instance:
 - `enp0s8` — the interface that is connected to on the host and which is automatically configured;`en0`
 - `enp0s9` — the interface that is connected to on the host, ready for manual configuration.`bridge0`
 
-
-
 ### [Routing](https://multipass.run/docs/create-an-instance#heading--routing)
-
-
 
 Extra interfaces are configured with a higher metric (200) than the default one (100). So, by default the instance will only route through them if they’re a [better match](https://en.wikipedia.org/wiki/Longest_prefix_match) for the destination IP:
 
@@ -201,11 +175,7 @@ $ multipass exec upbeat-whipsnake -- ip route get 192.168.1.13
     cache
 ```
 
-
-
 ### [Bridging](https://multipass.run/docs/create-an-instance#heading--bridging)
-
-
 
 On Linux, when trying to connect an instance network to an Ethernet device on the host, Multipass will offer to create the required bridge:
 
@@ -243,19 +213,11 @@ multipass launch --network mybridge
 
 Another option is to install , but other network handlers need to be deactivated to avoid conflicts and make the new bridges permanent.`NetworkManager`
 
-
-
 ## [Create an instance with a custom DNS](https://multipass.run/docs/create-an-instance#heading--create-an-instance-with-a-custom-dns)
-
-
 
 In some scenarios the default of using the system-provided DNS will not be sufficient. When that’s the case, you can use the option to the [`launch`](https://multipass.run/docs/launch-command) command, or modify the networking configuration after the instance started.`--cloud-init`
 
-
-
 ### [The `--cloud-init` approach](https://multipass.run/docs/create-an-instance#heading--the---cloud-init-approach)
-
-
 
 > See also: [`launch ... --cloud-init`](https://multipass.run/docs/launch-command)
 
@@ -264,8 +226,8 @@ To use a custom DNS in your instances, you can use this cloud-init snippet:
 ```yaml
 #cloud-config
 bootcmd:
-- printf "[Resolve]\nDNS=8.8.8.8" > /etc/systemd/resolved.conf
-- [systemctl, restart, systemd-resolved]
+  - printf "[Resolve]\nDNS=8.8.8.8" > /etc/systemd/resolved.conf
+  - [systemctl, restart, systemd-resolved]
 ```
 
 Replace with whatever your preferred DNS server is. You can then launch the instance using the following:`8.8.8.8`
@@ -274,11 +236,7 @@ Replace with whatever your preferred DNS server is. You can then launch the inst
 $ multipass launch --cloud-init systemd-resolved.yaml
 ```
 
-
-
 ### [The netplan.io approach](https://multipass.run/docs/create-an-instance#heading--the-netplanio-approach)
-
-
 
 After the instance booted, you can modify the file, adding the entry:`/etc/netplan/50-cloud-init.yaml``nameservers`
 

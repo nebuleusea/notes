@@ -1,10 +1,6 @@
 # `conda doctor`
 
-
-
 显示您的环境的健康报告。
-
-
 
 ```
 usage: conda doctor [-v] [-h] [-n ENVIRONMENT | -p PATH]

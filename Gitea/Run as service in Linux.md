@@ -1,18 +1,12 @@
 ### 在 Ubuntu 16.04 LTS 中以 service 方式运行
 
-
-
 #### systemd 方式
-
-
 
 在 terminal 中执行以下命令：
 
 ```
 sudo vim /etc/systemd/system/gitea.service
 ```
-
-
 
 接着拷贝示例代码 [gitea.service](https://github.com/go-gitea/gitea/blob/main/contrib/systemd/gitea.service) 并取消对任何需要运行在主机上的服务部分的注释，譬如 MySQL。
 
@@ -25,19 +19,13 @@ sudo systemctl enable gitea
 sudo systemctl start gitea
 ```
 
-
-
 #### 使用 supervisor
-
-
 
 在 terminal 中执行以下命令安装 supervisor：
 
 ```
 sudo apt install supervisor
 ```
-
-
 
 为 supervisor 配置日志路径：
 
@@ -46,15 +34,11 @@ sudo apt install supervisor
 mkdir /home/git/gitea/log/supervisor
 ```
 
-
-
 在文件编辑器中打开 supervisor 的配置文件：
 
 ```
 sudo vim /etc/supervisor/supervisord.conf
 ```
-
-
 
 增加如下示例配置 [supervisord config](https://github.com/go-gitea/gitea/blob/main/contrib/supervisor/gitea)。
 

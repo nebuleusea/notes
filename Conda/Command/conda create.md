@@ -1,12 +1,8 @@
 # `conda create`
 
-
-
 从指定包列表创建新的 conda 环境。
 
 要使用新创建的环境，请使用“conda activate envname”。此命令需要 -n NAME 或 -p PREFIX 选项。
-
-
 
 ```
 usage: conda create [-h] [--clone ENV] (-n ENVIRONMENT | -p PATH) [-c CHANNEL]
@@ -178,8 +174,6 @@ usage: conda create [-h] [--clone ENV] (-n ENVIRONMENT | -p PATH) [-c CHANNEL]
 - --show-channel-urls
 
   显示频道网址。覆盖conda config --show show_channel_urls给出的值。
-
-
 
 例子：
 

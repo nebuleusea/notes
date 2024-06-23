@@ -19,7 +19,7 @@ scp [-1246BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
 简易写法:
 
 ```
-scp [可选参数] file_source file_target 
+scp [可选参数] file_source file_target
 ```
 
 **参数说明：**
@@ -49,16 +49,14 @@ scp [可选参数] file_source file_target
 命令格式：
 
 ```
-scp local_file remote_username@remote_ip:remote_folder 
-或者 
-scp local_file remote_username@remote_ip:remote_file 
-或者 
-scp local_file remote_ip:remote_folder 
-或者 
-scp local_file remote_ip:remote_file 
+scp local_file remote_username@remote_ip:remote_folder
+或者
+scp local_file remote_username@remote_ip:remote_file
+或者
+scp local_file remote_ip:remote_folder
+或者
+scp local_file remote_ip:remote_file
 ```
-
-
 
 - 第1,2个指定了用户名，命令执行后需要再输入密码，第1个仅指定了远程的目录，文件名字不变，第2个指定了文件名；
 - 第3,4个没有指定用户名，命令执行后需要输入用户名和密码，第3个仅指定了远程的目录，文件名字不变，第4个指定了文件名；
@@ -66,18 +64,18 @@ scp local_file remote_ip:remote_file
 应用实例：
 
 ```
-scp /home/space/music/1.mp3 root@www.runoob.com:/home/root/others/music 
-scp /home/space/music/1.mp3 root@www.runoob.com:/home/root/others/music/001.mp3 
-scp /home/space/music/1.mp3 www.runoob.com:/home/root/others/music 
-scp /home/space/music/1.mp3 www.runoob.com:/home/root/others/music/001.mp3 
+scp /home/space/music/1.mp3 root@www.runoob.com:/home/root/others/music
+scp /home/space/music/1.mp3 root@www.runoob.com:/home/root/others/music/001.mp3
+scp /home/space/music/1.mp3 www.runoob.com:/home/root/others/music
+scp /home/space/music/1.mp3 www.runoob.com:/home/root/others/music/001.mp3
 ```
 
 复制目录命令格式：
 
 ```
-scp -r local_folder remote_username@remote_ip:remote_folder 
-或者 
-scp -r local_folder remote_ip:remote_folder 
+scp -r local_folder remote_username@remote_ip:remote_folder
+或者
+scp -r local_folder remote_ip:remote_folder
 ```
 
 - 第1个指定了用户名，命令执行后需要再输入密码；
@@ -86,8 +84,8 @@ scp -r local_folder remote_ip:remote_folder
 应用实例：
 
 ```
-scp -r /home/space/music/ root@www.runoob.com:/home/root/others/ 
-scp -r /home/space/music/ www.runoob.com:/home/root/others/ 
+scp -r /home/space/music/ root@www.runoob.com:/home/root/others/
+scp -r /home/space/music/ www.runoob.com:/home/root/others/
 ```
 
 上面命令将本地 music 目录复制到远程 others 目录下。
@@ -99,7 +97,7 @@ scp -r /home/space/music/ www.runoob.com:/home/root/others/
 应用实例：
 
 ```
-scp root@www.runoob.com:/home/root/others/music /home/space/music/1.mp3 
+scp root@www.runoob.com:/home/root/others/music /home/space/music/1.mp3
 scp -r www.runoob.com:/home/root/others/ /home/space/music/
 ```
 

@@ -1,18 +1,12 @@
 # 命令行
 
-
-
 ## 用法
-
-
 
 ```
 gitea [全局选项] 命令 [命令或全局选项] [参数...]
 ```
 
 ## 全局选项
-
-
 
 所有全局选项均可被放置在命令级别。
 
@@ -26,11 +20,7 @@ gitea [全局选项] 命令 [命令或全局选项] [参数...]
 
 ## 命令
 
-
-
 ### web
-
-
 
 启动服务器：
 
@@ -48,8 +38,6 @@ gitea [全局选项] 命令 [命令或全局选项] [参数...]
   - Gitea 不应以 root 用户身份运行。要绑定到低于 1024 的端口，您可以在 Linux 上使用 setcap 命令：`sudo setcap 'cap_net_bind_service=+ep' /path/to/gitea`。每次更新 Gitea 都需要重新执行此操作。
 
 ### admin
-
-
 
 管理员操作：
 
@@ -390,8 +378,6 @@ gitea [全局选项] 命令 [命令或全局选项] [参数...]
 
 ### cert
 
-
-
 生成自签名的SSL证书。将输出到当前目录下的`cert.pem`和`key.pem`文件中，并且会覆盖任何现有文件。
 
 - 选项：
@@ -405,8 +391,6 @@ gitea [全局选项] 命令 [命令或全局选项] [参数...]
   - `gitea cert --host git.example.com,example.com,www.example.com --ca`
 
 ### dump
-
-
 
 将所有文件和数据库导出到一个zip文件中。输出文件将保存在当前目录下，类似于`gitea-dump-1482906742.zip`。
 
@@ -427,8 +411,6 @@ gitea [全局选项] 命令 [命令或全局选项] [参数...]
   - `gitea dump --verbose`
 
 ### generate
-
-
 
 用于在配置文件中生成随机值和令牌。对于自动部署时生成值非常有用。
 
@@ -451,8 +433,6 @@ gitea [全局选项] 命令 [命令或全局选项] [参数...]
 
 ### keys
 
-
-
 提供一个 SSHD AuthorizedKeysCommand。需要在 sshd 配置文件中进行配置:
 
 ```
@@ -462,21 +442,15 @@ AuthorizedKeysCommandUser git
 AuthorizedKeysCommand /path/to/gitea keys -e git -u %u -t %t -k %k
 ```
 
-
-
 该命令将返回适用于提供的密钥的合适 authorized_keys 行。您还应在 `app.ini` 的 `[server]` 部分设置值 `SSH_CREATE_AUTHORIZED_KEYS_FILE=false`。
 
 注意: opensshd 要求 Gitea 程序由 root 拥有，并且不可由组或其他人写入。程序必须使用绝对路径指定。 注意: Gitea 必须在运行此命令时处于运行状态才能成功。
 
 ### migrate
 
-
-
 迁移数据库。该命令可用于在首次启动服务器之前运行其他命令。此命令是幂等的。
 
 ### doctor check
-
-
 
 对 Gitea 实例进行诊断，可以修复一些可修复的问题。 默认只运行部分检查，额外的检查可以参考：
 
@@ -489,15 +463,11 @@ AuthorizedKeysCommand /path/to/gitea keys -e git -u %u -t %t -k %k
 
 #### doctor recreate-table
 
-
-
 有时，在迁移时，旧的列和默认值可能会在数据库模式中保持不变。这可能会导致警告，如下所示:
 
 ```
 2020/08/02 11:32:29 ...rm/session_schema.go:360:Sync() [W] Table user Column keep_activity_private db default is , struct default is 0
 ```
-
-
 
 您可以通过以下方式让 Gitea 重新创建这些表，并将旧数据复制到新表中，并适当设置默认值：
 
@@ -505,15 +475,11 @@ AuthorizedKeysCommand /path/to/gitea keys -e git -u %u -t %t -k %k
 gitea doctor recreate-table user
 ```
 
-
-
 您可以使用以下方式让 Gitea 重新创建多个表：
 
 ```
 gitea doctor recreate-table table1 table2 ...
 ```
-
-
 
 如果您希望 Gitea 重新创建所有表，请直接调用：
 
@@ -521,19 +487,13 @@ gitea doctor recreate-table table1 table2 ...
 gitea doctor recreate-table
 ```
 
-
-
 强烈建议在运行这些命令之前备份您的数据库。
 
 ### doctor convert
 
-
-
 将现有的 MySQL 数据库从 utf8 转换为 utf8mb4，或者把 MSSQL 数据库从 varchar 转换为 nvarchar。
 
 ### manager
-
-
 
 管理运行中的服务器操作：
 
@@ -688,8 +648,6 @@ gitea doctor recreate-table
 
 ### dump-repo
 
-
-
 `dump-repo` 从 Git/GitHub/Gitea/GitLab 中转储存储库数据：
 
 - 选项：
@@ -705,8 +663,6 @@ gitea doctor recreate-table
 
 ### restore-repo
 
-
-
 `restore-repo` 从磁盘目录中还原存储库数据：
 
 - 选项：
@@ -716,8 +672,6 @@ gitea doctor recreate-table
   - `--units <units>`：要还原的项目，一个或多个项目应以逗号分隔。允许的项目有 wiki, issues, labels, releases, release_assets, milestones, pull_requests, comments。如果为空，则表示所有项目。
 
 ### actions generate-runner-token
-
-
 
 生成一个供 Runner 使用的新令牌，用于向服务器注册。
 
@@ -730,15 +684,11 @@ gitea doctor recreate-table
 gitea actions generate-runner-token
 ```
 
-
-
 要注册特定组织的 Runner，例如 `org`：
 
 ```
 gitea actions generate-runner-token -s org
 ```
-
-
 
 要注册特定仓库的 Runner，例如 `username/test-repo`：
 

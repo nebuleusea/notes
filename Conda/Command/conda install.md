@@ -1,7 +1,5 @@
 # `conda install`
 
-
-
 将软件包列表安装到指定的 conda 环境中。
 
 该命令接受软件包规范列表（例如，bitarray=0.8）并安装一组符合这些规范并与底层环境兼容的软件包。如果不能保证完全兼容性，则会报告错误并且不会更改环境。
@@ -11,8 +9,6 @@ Conda 尝试安装所请求软件包的最新版本。为此，它可能会更�
 如果您希望完全跳过依赖项检查，请使用“--no-deps”选项。这可能会导致环境中包含不兼容的包，因此必须非常谨慎地使用此选项。
 
 还可以使用显式 conda 包文件名列表来调用 conda（例如 ./lxml-3.2.0-py27_0.tar.bz2）。在此模式下使用 conda 意味着 --no-deps 选项，同样应谨慎使用。显式文件名和包规范不能混合在单个命令中。
-
-
 
 ```
 usage: conda install [-h] [--revision REVISION] [-n ENVIRONMENT | -p PATH]
@@ -205,8 +201,6 @@ usage: conda install [-h] [--revision REVISION] [-n ENVIRONMENT | -p PATH]
 - --show-channel-urls
 
   显示频道网址。覆盖conda config --show show_channel_urls给出的值。
-
-
 
 例子：
 

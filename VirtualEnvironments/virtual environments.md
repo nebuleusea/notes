@@ -22,21 +22,17 @@ Python 从3.3 版本开始，自带了一个虚拟环境 [venv](https://docs.pyt
 
 因为是从 3.3 版本开始自带的，这个工具也仅仅支持 python 3.3 和以后版本。所以，要在 python2 上使用虚拟环境，依然要利用 [virtualenv](http://www.virtualenv.org/) 。
 
-在 *nix 系统上，可以直接执行 `pyvenv /path/to/new/virtual/enviorment` 来创建一个虚拟环境，在 Windows 系统上，则可以使用 `python -m venv myenv` 来创建。
+在 \*nix 系统上，可以直接执行 `pyvenv /path/to/new/virtual/enviorment` 来创建一个虚拟环境，在 Windows 系统上，则可以使用 `python -m venv myenv` 来创建。
 
 **2015-04-18 更新：**
 
 pyvenv 3.4 在 Ubuntu 14.04 下有 bug，如下：
 
 ```python
-1pyvenv ➤ python3 -m venv blog                                                                        
+1pyvenv ➤ python3 -m venv blog
 2Error: Command '['/home/zrong/pyvenv/blog/bin/python3', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1
-3pyvenv ➤ pyvenv-3.4 --without-pip blog       
+3pyvenv ➤ pyvenv-3.4 --without-pip blog
 ```
-
-
-
-
 
 解决方法是创建一个不含 pip 的虚拟环境，然后手动安装 pip ：
 
@@ -46,10 +42,6 @@ pyvenv 3.4 在 Ubuntu 14.04 下有 bug，如下：
 3curl https://bootstrap.pypa.io/get-pip.py | python
 4source venvdir/bin/activate
 ```
-
-
-
-
 
 参见：
 

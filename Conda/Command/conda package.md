@@ -1,10 +1,6 @@
 # `conda package`
 
-
-
 创建低级 conda 包。 （实验性）
-
-
 
 ```
 usage: conda package [-h] [-n ENVIRONMENT | -p PATH] [-w PATH [PATH ...]] [-r]

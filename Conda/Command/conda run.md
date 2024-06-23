@@ -1,10 +1,6 @@
 # `conda run`
 
-
-
 在 conda 环境中运行可执行文件。
-
-
 
 ```
 usage: conda run [-h] [-n ENVIRONMENT | -p PATH] [-v] [--dev]
@@ -49,8 +45,6 @@ usage: conda run [-h] [-n ENVIRONMENT | -p PATH] [-v] [--dev]
 - -p, --prefix
 
   环境位置的完整路径（即前缀）。
-
-
 
 例子：
 

@@ -1,12 +1,8 @@
 # `conda search`
 
-
-
 使用 MatchSpec 格式搜索包并显示关联信息。
 
 MatchSpec 是 conda 包的查询语言。
-
-
 
 ```
 usage: conda search [-h] [--envs] [-i] [--subdir SUBDIR]
@@ -93,8 +89,6 @@ usage: conda search [-h] [--envs] [-i] [--subdir SUBDIR]
 
   不显示进度条。
 
-
-
 例子：
 
 搜索名为“scikit-learn”的特定包：
@@ -109,7 +103,7 @@ conda search scikit-learn
 conda search *scikit*
 ```
 
-请注意，您的 shell 可能会在将命令交给 conda 之前扩展“*”。因此，有时需要在查询周围使用单引号或双引号：
+请注意，您的 shell 可能会在将命令交给 conda 之前扩展“\*”。因此，有时需要在查询周围使用单引号或双引号：
 
 ```
 conda search '*scikit'

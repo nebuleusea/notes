@@ -1,5 +1,4 @@
-
-``` python
+```python
 Pandas.set_option('display.max_columns', 500)
 Pandas.set_option('display.width', 1000)
 data[data.payment_item.map(lambda x:any(ele in x for ele in ['行李箱']))]
@@ -10,17 +9,19 @@ pd.set_option('display.width', None)  # 不折叠单元格
 pd.set_option('display.max_colwidth', None)  # 显示完整的单元格内容
 ```
 
-
-
 ### 数据的排序
+
 - 基于标签的排序
-``` python
+
+```python
 Series.sort_index(ascending=False,na_posstion='last',ignore_index=True,inplace=True)
 
 DataFrame.sort_index(axis=0,ascending=False,na_posstion='last',ignore_index=True,inplace=True)
 ```
+
 - 基于元素的排序
-``` python
+
+```python
 # sort_values方法
 Series.sort_values(ascending=False,na_posstion='last',ignore_index=True,inplace=True)
 DataFrame.sort_values(by,ascending=False,na_posstion='last',ignore_index=True,inplace=True)

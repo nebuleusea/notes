@@ -1,12 +1,8 @@
 # `conda notices`
 
-
-
 检索最新的频道通知。
 
 Conda 通道维护人员可以选择设置用户间歇性看到的消息。其中一些通知是信息性的，而另一些则是有关通道稳定性的消息。
-
-
 
 ```
 usage: conda notices [-h] [-c CHANNEL] [--use-local] [--override-channels]
@@ -58,8 +54,6 @@ usage: conda notices [-h] [-c CHANNEL] [--use-local] [--override-channels]
 - -q, --quiet
 
   不显示进度条。
-
-
 
 例子：
 

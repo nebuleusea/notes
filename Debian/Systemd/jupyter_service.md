@@ -1,6 +1,5 @@
 /home/admin/.miniconda3/envs/jupyter_server/bin/jupyter-lab --no-browser --ip=0.0.0.0 ~/.jupyter_workspace
 
-
 [Unit]
 Description=Jupyter
 After=syslog.target network.target

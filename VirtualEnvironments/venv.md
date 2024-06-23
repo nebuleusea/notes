@@ -1,10 +1,10 @@
 # [`venv`](https://docs.python.org/zh-cn/3/library/venv.html#module-venv) --- 创建虚拟环境
 
-*在 3.3 版本加入.*
+_在 3.3 版本加入._
 
 **源码：** [Lib/venv/](https://github.com/python/cpython/tree/3.12/Lib/venv/)
 
-------
+---
 
 `venv` 模块支持创建轻量的“虚拟环境”，每个虚拟环境将拥有它们自己独立的安装在其 [`site`](https://docs.python.org/zh-cn/3/library/site.html#module-site) 目录中的 Python 软件包集合。 虚拟环境是在现有的 Python 安装版基础之上创建的，这被称为虚拟环境的“基础”Python，并且还可选择与基础环境中的软件包隔离开来，这样只有在虚拟环境中显式安装的软件包才是可用的。
 
@@ -13,7 +13,7 @@
 虚拟环境是（主要的特性）：
 
 - 用来包含支持一个项目（库或应用程序）所需的特定 Python 解释器、软件库和二进制文件。 它们在默认情况下与其他虚拟环境中的软件以及操作系统中安装的 Python 解释器和库保持隔离。
-- 包含在一个目录中，根据惯例被命名为项目目录下的``venv`` 或 `.venv`，或是有许多虚拟环境的容器目录下，如 `~/.virtualenvs`。
+- 包含在一个目录中，根据惯例被命名为项目目录下的`venv` 或 `.venv`，或是有许多虚拟环境的容器目录下，如 `~/.virtualenvs`。
 - 不可签入 Git 等源代码控制系统。
 - 被视为是可丢弃性的 —— 应当能够简单地删除并从头开始重建。 你不应在虚拟环境中放置任何项目代码。
 - 不被视为是可移动或可复制的 —— 你只能在目标位置重建相同的环境。
@@ -21,8 +21,6 @@
 请参阅 [**PEP 405**](https://peps.python.org/pep-0405/) 了解有关 Python 虚拟环境的更多背景信息。
 
 参见
-
- 
 
 [Python Packaging User Guide: Creating and using virtual environments](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments)
 
@@ -40,9 +38,9 @@ python -m venv /path/to/new/virtual/environment
 
 运行此命令将创建目标目录（父目录若不存在也将创建），并放置一个 `pyvenv.cfg` 文件在其中，文件中有一个 `home` 键，它的值指向运行此命令的 Python 安装（目标目录的常用名称是 `.venv`）。它还会创建一个 `bin` 子目录（在 Windows 上是 `Scripts`），其中包含 Python 二进制文件的副本或符号链接（视创建环境时使用的平台或参数而定）。它还会创建一个（初始为空的） `lib/pythonX.Y/site-packages` 子目录（在 Windows 上是 `Lib\site-packages`）。如果指定了一个现有的目录，这个目录就将被重新使用。
 
-*在 3.5 版本发生变更:* 现在推荐使用 `venv` 来创建虚拟环境。
+_在 3.5 版本发生变更:_ 现在推荐使用 `venv` 来创建虚拟环境。
 
-*自 3.6 版本弃用:* `pyvenv` 是针对 Python 3.3 和 3.4 创建虚拟环境的推荐工具，并 [在 Python 3.6 中被弃用](https://docs.python.org/zh-cn/3/whatsnew/3.6.html#whatsnew36-venv)。
+_自 3.6 版本弃用:_ `pyvenv` 是针对 Python 3.3 和 3.4 创建虚拟环境的推荐工具，并 [在 Python 3.6 中被弃用](https://docs.python.org/zh-cn/3/whatsnew/3.6.html#whatsnew36-venv)。
 
 在 Windows 上，调用 `venv` 命令如下:
 
@@ -92,23 +90,19 @@ Once an environment has been created, you may wish to activate it, e.g. by
 sourcing an activate script in its bin directory.
 ```
 
-*在 3.12 版本发生变更:* `setuptools` 不再是核心的 venv 依赖项。
+_在 3.12 版本发生变更:_ `setuptools` 不再是核心的 venv 依赖项。
 
-*在 3.9 版本发生变更:* 添加 `--upgrade-deps` 选项，用于将 pip + setuptools 升级到 PyPI 上的最新版本
+_在 3.9 版本发生变更:_ 添加 `--upgrade-deps` 选项，用于将 pip + setuptools 升级到 PyPI 上的最新版本
 
-*在 3.4 版本发生变更:* 默认安装 pip，并添加 `--without-pip` 和 `--copies` 选项
+_在 3.4 版本发生变更:_ 默认安装 pip，并添加 `--without-pip` 和 `--copies` 选项
 
-*在 3.4 版本发生变更:* 在早期版本中，如果目标目录已存在，将引发错误，除非使用了 `--clear` 或 `--upgrade` 选项。
+_在 3.4 版本发生变更:_ 在早期版本中，如果目标目录已存在，将引发错误，除非使用了 `--clear` 或 `--upgrade` 选项。
 
 备注
-
- 
 
 虽然 Windows 支持符号链接，但不推荐使用它们。特别注意，在文件资源管理器中双击 `python.exe` 将立即解析符号链接，并忽略虚拟环境。
 
 备注
-
- 
 
 在 Microsoft Windows 上，为了启用 `Activate.ps1` 脚本，可能需要修改用户的执行策略。可以运行以下 PowerShell 命令来执行此操作：
 
@@ -121,8 +115,6 @@ PS C:> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 除非采用 `--without-pip` 选项，否则将会调用 [`ensurepip`](https://docs.python.org/zh-cn/3/library/ensurepip.html#module-ensurepip) 将 `pip` 引导到虚拟环境中。
 
 可以向 `venv` 传入多个路径，此时将根据给定的选项，在所给的每个路径上创建相同的虚拟环境。
-
-
 
 ## 虚拟环境是如何实现的
 
@@ -139,19 +131,17 @@ PS C:> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 | Windows    | cmd.exe                                 | `C:\> *<venv>*\Scripts\activate.bat` |
 | PowerShell | `PS C:\> *<venv>*\Scripts\Activate.ps1` |                                      |
 
-*在 3.4 版本加入:* **fish** 和 **csh** 激活脚本。
+_在 3.4 版本加入:_ **fish** 和 **csh** 激活脚本。
 
-*在 3.8 版本加入:* 在 POSIX 上安装 PowerShell 激活脚本，以支持 PowerShell Core。
+_在 3.8 版本加入:_ 在 POSIX 上安装 PowerShell 激活脚本，以支持 PowerShell Core。
 
-激活一个虚拟环境的操作 *不是必需的*，因为你完全可以在发起调用 Python 时指明特定虚拟环境的 Python 解释器的完整路径。 更进一步地说，安装在虚拟环境中的所有脚本也都可以在不激活该虚拟环境的情况下运行。
+激活一个虚拟环境的操作 _不是必需的_，因为你完全可以在发起调用 Python 时指明特定虚拟环境的 Python 解释器的完整路径。 更进一步地说，安装在虚拟环境中的所有脚本也都可以在不激活该虚拟环境的情况下运行。
 
 为了达成此目的，安装到虚拟环境中的脚本将包含一个以“井号叹号”打头的行用来指定虚拟环境的 Python 解释器，例如 `#!/*<path-to-venv>*/bin/python`。 这意味着无论 `PATH` 的值是什么该脚本都将使用指定的解释器运行。 在 Windows 上对“井号叹号”行的处理将在你安装了 [适用于Windows的Python启动器](https://docs.python.org/zh-cn/3/using/windows.html#launcher) 的情况下获得支持。 这样，在 Windows 资源管理器窗口中双击一个已安装的脚本应当会使用正确的解释器运行它而无需激活相应虚拟环境或设置 `PATH`。
 
 当一个虚拟环境已被激活时，`VIRTUAL_ENV` 环境变量会被设为该虚拟环境的路径。 由于使用虚拟环境并不需要显式地激活它，因此 `VIRTUAL_ENV` 并不能被用来可靠地确定是否正在使用虚拟环境。
 
 警告
-
- 
 
 因为安装在虚拟环境中的脚本不应要求必须激活该虚拟环境，所以它们的“井号叹号”行会包含虚拟环境的绝对路径。 因为这一点，所以虚拟环境在通常情况下都是不可移植的。 你应当保证提供重建一个虚拟环境的简便方式（举例来说，如果你准备了需求文件 `requirements.txt`，则可以使用虚拟环境的 `pip` 执行 `pip install -r requirements.txt` 来安装虚拟环境所需的所有软件包）。 如果出于某种原因你需要将虚拟环境移动到一个新的位置，则你应当在目标位置上重建它并删除旧位置上的虚拟环境。 如果出于某种原因你移动了一个虚拟环境的上级目录，你也应当在新位置上重建该虚拟环境。 否则，安装到该虚拟环境的软件包可能无法正常工作。
 

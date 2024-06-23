@@ -1,10 +1,6 @@
 # `conda list`
 
-
-
 列出 conda 环境中已安装的软件包。
-
-
 
 ```
 usage: conda list [-h] [-n ENVIRONMENT | -p PATH] [--json] [-v] [-q]
@@ -80,8 +76,6 @@ usage: conda list [-h] [-n ENVIRONMENT | -p PATH] [--json] [-v] [-q]
 - -q, --quiet
 
   不显示进度条。
-
-
 
 例子：
 

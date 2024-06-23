@@ -1,14 +1,10 @@
 # `conda update`
 
-
-
 将 conda 软件包更新到最新的兼容版本。
 
 此命令接受包名称列表，并将它们更新为与环境中所有其他包兼容的最新版本。
 
 Conda 尝试安装所请求软件包的最新版本。为此，它可能会更新一些已安装的软件包，或安装其他软件包。要防止更新现有包，请使用 --no-update-deps 选项。这可能会强制 conda 安装所请求包的旧版本，并且不会阻止安装其他依赖项包。
-
-
 
 ```
 usage: conda update [-h] [-n ENVIRONMENT | -p PATH] [-c CHANNEL] [--use-local]
@@ -189,8 +185,6 @@ usage: conda update [-h] [-n ENVIRONMENT | -p PATH] [-c CHANNEL] [--use-local]
 - --show-channel-urls
 
   显示频道网址。覆盖conda config --show show_channel_urls给出的值。
-
-
 
 例子：
 

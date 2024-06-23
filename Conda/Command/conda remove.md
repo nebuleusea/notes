@@ -1,14 +1,10 @@
 # `conda remove`
 
-
-
 从指定的 conda 环境中删除包列表。
 
 使用--all标志删除所有包和环境本身。
 
 此命令还将删除依赖于任何指定包的任何包——除非可以找到没有该依赖项的替换包。如果您希望跳过此依赖项检查并仅删除请求的包，请添加“--force”选项。但请注意，这可能会导致环境损坏，因此请谨慎使用。
-
-
 
 ```
 usage: conda remove [-h] [-n ENVIRONMENT | -p PATH] [-c CHANNEL] [--use-local]
@@ -134,8 +130,6 @@ usage: conda remove [-h] [-n ENVIRONMENT | -p PATH] [-c CHANNEL] [--use-local]
 - -y, --yes
 
   自动将任何确认值设置为“是”。不会要求用户确认任何添加、删除、备份等操作。
-
-
 
 例子：
 

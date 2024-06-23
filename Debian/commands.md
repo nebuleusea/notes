@@ -1,25 +1,25 @@
 ## 1.配置中文环境
 
 ### 1.打开配置
+
 ```shell
 sudo dpkg-reconfigure locales
 ```
+
 ### 2.选择zh_CN.UTF-8作为默认语言
+
 ### 3.修改locale文件
+
 ```shell
 vim /etc/default/locale
 ```
+
 ```
 LANG=zh_CN.UTF-8
 LANGUAGE=zh_CN.UTF-8
 ```
+
 ### 4.重启终端
-
-
-
-
-
-
 
 ### 环境变量
 
@@ -27,19 +27,20 @@ LANGUAGE=zh_CN.UTF-8
 export $PATH
 ```
 
-* 查找pg_hba.conf文件的路径
+- 查找pg_hba.conf文件的路径
 
 ```shell
 (sudo) find / -name pg_hba.conf
 ```
 
-* 修改用户密码
+- 修改用户密码
 
 ```shell
 (sudo) passwd username
 ```
 
 # 目录改回英文
+
 ### 方法一
 
 ```shell
@@ -73,4 +74,3 @@ cat id_rsa_pub
 ```shell
  ssh-keygen -R <url>
 ```
-

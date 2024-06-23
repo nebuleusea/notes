@@ -1,10 +1,6 @@
 # `conda compare`
 
-
-
 比较 conda 环境之间的包。
-
-
 
 ```
 usage: conda compare [-h] [--json] [-v] [-q] [-n ENVIRONMENT | -p PATH] file
@@ -39,8 +35,6 @@ usage: conda compare [-h] [--json] [-v] [-q] [-n ENVIRONMENT | -p PATH] file
 - -p, --prefix
 
   环境位置的完整路径（即前缀）。
-
-
 
 例子：
 

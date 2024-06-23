@@ -1,10 +1,6 @@
 # `conda clean`
 
-
-
 删除未使用的包和缓存。
-
-
 
 ```
 usage: conda clean [-h] [-a] [-i] [-p] [-t] [-f] [-c [TEMPFILES ...]] [-l]
@@ -62,8 +58,6 @@ usage: conda clean [-h] [-a] [-i] [-p] [-t] [-f] [-c [TEMPFILES ...]] [-l]
 - -y, --yes
 
   自动将任何确认值设置为“是”。不会要求用户确认任何添加、删除、备份等操作。
-
-
 
 例子：
 

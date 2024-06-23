@@ -1,12 +1,8 @@
 # `conda config`
 
-
-
 修改 .condarc 中的配置值。
 
 这是根据 git config 命令建模的。默认情况下写入用户 .condarc 文件 (/home/docs/.condarc)。使用 --show-sources 标志显示计算机上所有已识别的配置位置。
-
-
 
 ```
 usage: conda config [-h] [--json] [-v] [-q] [--system | --env | --file FILE]
@@ -99,8 +95,6 @@ usage: conda config [-h] [--json] [-v] [-q] [--system | --env | --file FILE]
 
   应用通过 stdin 传输的 yaml 格式给出的配置信息。
 
-
-
 有关 .condarc 中所有选项的详细信息，请参阅conda config --describe或[https://conda.io/docs/config.html 。](https://conda.io/docs/config.html)
 
 例子：
@@ -147,11 +141,8 @@ conda config --set verbosity 3 --env
 conda config --append channels conda-forge
 ```
 
-
-
-
-
 用于设置conda配置文件中的show_channel_urls选项,设置为yes，则在运行conda install等命令时，将显示正在使用的通道的URL
+
 ```
 conda config --set show_channel_urls yes
 ```

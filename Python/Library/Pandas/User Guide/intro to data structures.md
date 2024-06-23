@@ -8,13 +8,9 @@ In [1]: import numpy as np
 In [2]: import pandas as pd
 ```
 
-
-
 从根本上说，**数据对齐是固有的**。除非您明确这样做，否则标签和数据之间的链接不会被破坏。
 
 我们将简要介绍数据结构，然后在单独的部分中考虑所有广泛的功能和方法类别。
-
-
 
 ## 系列
 
@@ -23,8 +19,6 @@ In [2]: import pandas as pd
 ```
 s = pd.Series(data, index=index)
 ```
-
-
 
 这里，`data`可以有很多不同的东西：
 
@@ -42,7 +36,7 @@ s = pd.Series(data, index=index)
 In [3]: s = pd.Series(np.random.randn(5), index=["a", "b", "c", "d", "e"])
 
 In [4]: s
-Out[4]: 
+Out[4]:
 a    0.469112
 b   -0.282863
 c   -1.509059
@@ -54,7 +48,7 @@ In [5]: s.index
 Out[5]: Index(['a', 'b', 'c', 'd', 'e'], dtype='object')
 
 In [6]: pd.Series(np.random.randn(5))
-Out[6]: 
+Out[6]:
 0   -0.173215
 1    0.119209
 2   -1.044236
@@ -62,8 +56,6 @@ Out[6]:
 4   -2.104569
 dtype: float64
 ```
-
-
 
 笔记
 
@@ -77,14 +69,12 @@ pandas 支持非唯一索引值。如果尝试执行不支持重复索引值的�
 In [7]: d = {"b": 1, "a": 0, "c": 2}
 
 In [8]: pd.Series(d)
-Out[8]: 
+Out[8]:
 b    1
 a    0
 c    2
 dtype: int64
 ```
-
-
 
 如果传递了索引，则将拉出索引中标签对应的数据中的值。
 
@@ -92,22 +82,20 @@ dtype: int64
 In [9]: d = {"a": 0.0, "b": 1.0, "c": 2.0}
 
 In [10]: pd.Series(d)
-Out[10]: 
+Out[10]:
 a    0.0
 b    1.0
 c    2.0
 dtype: float64
 
 In [11]: pd.Series(d, index=["b", "c", "d", "a"])
-Out[11]: 
+Out[11]:
 b    1.0
 c    2.0
 d    NaN
 a    0.0
 dtype: float64
 ```
-
-
 
 笔记
 
@@ -119,7 +107,7 @@ NaN（不是数字）是 pandas 中使用的标准缺失数据标记。
 
 ```
 In [12]: pd.Series(5.0, index=["a", "b", "c", "d", "e"])
-Out[12]: 
+Out[12]:
 a    5.0
 b    5.0
 c    5.0
@@ -128,9 +116,7 @@ e    5.0
 dtype: float64
 ```
 
-
-
-### 系列类似于 ndarray 
+### 系列类似于 ndarray
 
 [`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)其行为与 a 非常相似，`ndarray`并且是大多数 NumPy 函数的有效参数。然而，切片等操作也会对索引进行切片。
 
@@ -139,27 +125,27 @@ In [13]: s.iloc[0]
 Out[13]: 0.4691122999071863
 
 In [14]: s.iloc[:3]
-Out[14]: 
+Out[14]:
 a    0.469112
 b   -0.282863
 c   -1.509059
 dtype: float64
 
 In [15]: s[s > s.median()]
-Out[15]: 
+Out[15]:
 a    0.469112
 e    1.212112
 dtype: float64
 
 In [16]: s.iloc[[4, 3, 1]]
-Out[16]: 
+Out[16]:
 e    1.212112
 d   -1.135632
 b   -0.282863
 dtype: float64
 
 In [17]: np.exp(s)
-Out[17]: 
+Out[17]:
 a    1.598575
 b    0.753623
 c    0.221118
@@ -167,8 +153,6 @@ d    0.321219
 e    3.360575
 dtype: float64
 ```
-
-
 
 笔记
 
@@ -181,22 +165,18 @@ In [18]: s.dtype
 Out[18]: dtype('float64')
 ```
 
-
-
 这通常是 NumPy dtype。然而，pandas 和第 3 方库在几个地方扩展了 NumPy 的类型系统，在这种情况下，dtype 将是[`ExtensionDtype`](https://pandas.pydata.org/docs/reference/api/pandas.api.extensions.ExtensionDtype.html#pandas.api.extensions.ExtensionDtype). pandas 中的一些示例是[分类数据](https://pandas.pydata.org/docs/user_guide/categorical.html#categorical)和[可为空整数数据类型](https://pandas.pydata.org/docs/user_guide/integer_na.html#integer-na)。有关更多信息，请参阅[dtypes](https://pandas.pydata.org/docs/user_guide/basics.html#basics-dtypes) 。
 
 如果您需要支持 a 的实际数组[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)，请使用[`Series.array`](https://pandas.pydata.org/docs/reference/api/pandas.Series.array.html#pandas.Series.array).
 
 ```
 In [19]: s.array
-Out[19]: 
+Out[19]:
 <NumpyExtensionArray>
 [ 0.4691122999071863, -0.2828633443286633, -1.5090585031735124,
  -1.1356323710171934,  1.2121120250208506]
 Length: 5, dtype: float64
 ```
-
-
 
 当您需要在没有索引的情况下执行某些操作（例如禁用[自动对齐](https://pandas.pydata.org/docs/user_guide/dsintro.html#dsintro-alignment)）时，访问数组会很有用。
 
@@ -208,8 +188,6 @@ Length: 5, dtype: float64
 In [20]: s.to_numpy()
 Out[20]: array([ 0.4691, -0.2829, -1.5091, -1.1356,  1.2121])
 ```
-
-
 
 即使[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)由 a 支持[`ExtensionArray`](https://pandas.pydata.org/docs/reference/api/pandas.api.extensions.ExtensionArray.html#pandas.api.extensions.ExtensionArray)， [`Series.to_numpy()`](https://pandas.pydata.org/docs/reference/api/pandas.Series.to_numpy.html#pandas.Series.to_numpy)也会返回 NumPy ndarray。
 
@@ -224,7 +202,7 @@ Out[21]: 0.4691122999071863
 In [22]: s["e"] = 12.0
 
 In [23]: s
-Out[23]: 
+Out[23]:
 a     0.469112
 b    -0.282863
 c    -1.509059
@@ -238,8 +216,6 @@ Out[24]: True
 In [25]: "f" in s
 Out[25]: False
 ```
-
-
 
 如果索引中不包含标签，则会引发异常：
 
@@ -299,8 +275,6 @@ File ~/work/pandas/pandas/pandas/core/indexes/base.py:3812, in Index.get_loc(sel
 KeyError: 'f'
 ```
 
-
-
 使用该[`Series.get()`](https://pandas.pydata.org/docs/reference/api/pandas.Series.get.html#pandas.Series.get)方法，丢失的标签将返回 None 或指定的默认值：
 
 ```
@@ -310,8 +284,6 @@ In [28]: s.get("f", np.nan)
 Out[28]: nan
 ```
 
-
-
 这些标签也可以通过[attribute](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-attribute-access)来访问。
 
 ### 矢量化操作和标签对齐系列
@@ -320,7 +292,7 @@ Out[28]: nan
 
 ```
 In [29]: s + s
-Out[29]: 
+Out[29]:
 a     0.938225
 b    -0.565727
 c    -3.018117
@@ -329,7 +301,7 @@ e    24.000000
 dtype: float64
 
 In [30]: s * 2
-Out[30]: 
+Out[30]:
 a     0.938225
 b    -0.565727
 c    -3.018117
@@ -338,7 +310,7 @@ e    24.000000
 dtype: float64
 
 In [31]: np.exp(s)
-Out[31]: 
+Out[31]:
 a         1.598575
 b         0.753623
 c         0.221118
@@ -347,13 +319,11 @@ e    162754.791419
 dtype: float64
 ```
 
-
-
 [`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)和 ndarray之间的一个关键区别是，它们之间的操作[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series) 会根据标签自动对齐数据。因此，您可以在编写计算时无需考虑所[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)涉及的标签是否相同。
 
 ```
 In [32]: s.iloc[1:] + s.iloc[:-1]
-Out[32]: 
+Out[32]:
 a         NaN
 b   -0.565727
 c   -3.018117
@@ -361,8 +331,6 @@ d   -2.271265
 e         NaN
 dtype: float64
 ```
-
-
 
 未对齐之间的运算结果[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)将包含所涉及索引的**并集**。如果在其中一个或另一个中找不到标签[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)，结果将被标记为丢失`NaN`。能够在不进行任何显式数据对齐的情况下编写代码，为交互式数据分析和研究提供了巨大的自由度和灵活性。 pandas 数据结构的集成数据对齐功能使 pandas 与大多数处理标记数据的相关工具区分开来。
 
@@ -378,7 +346,7 @@ dtype: float64
 In [33]: s = pd.Series(np.random.randn(5), name="something")
 
 In [34]: s
-Out[34]: 
+Out[34]:
 0   -0.494929
 1    1.071804
 2    0.721555
@@ -389,8 +357,6 @@ Name: something, dtype: float64
 In [35]: s.name
 Out[35]: 'something'
 ```
-
-
 
 在许多情况下可以自动分配 ，特别是当从 中选择单个列时，将会被分配列标签。[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series) `name`[`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)`name`
 
@@ -403,11 +369,7 @@ In [37]: s2.name
 Out[37]: 'different'
 ```
 
-
-
 请注意，`s`和`s2`指的是不同的对象。
-
-
 
 ## 数据框
 
@@ -432,12 +394,12 @@ In [38]: d = {
    ....:     "one": pd.Series([1.0, 2.0, 3.0], index=["a", "b", "c"]),
    ....:     "two": pd.Series([1.0, 2.0, 3.0, 4.0], index=["a", "b", "c", "d"]),
    ....: }
-   ....: 
+   ....:
 
 In [39]: df = pd.DataFrame(d)
 
 In [40]: df
-Out[40]: 
+Out[40]:
    one  two
 a  1.0  1.0
 b  2.0  2.0
@@ -445,21 +407,19 @@ c  3.0  3.0
 d  NaN  4.0
 
 In [41]: pd.DataFrame(d, index=["d", "b", "a"])
-Out[41]: 
+Out[41]:
    one  two
 d  NaN  4.0
 b  2.0  2.0
 a  1.0  1.0
 
 In [42]: pd.DataFrame(d, index=["d", "b", "a"], columns=["two", "three"])
-Out[42]: 
+Out[42]:
    two three
 d  4.0   NaN
 b  2.0   NaN
 a  1.0   NaN
 ```
-
-
 
 **可以通过访问index**和**columns**属性来分别访问行和列标签 ：
 
@@ -475,8 +435,6 @@ In [44]: df.columns
 Out[44]: Index(['one', 'two'], dtype='object')
 ```
 
-
-
 ### 来自 ndarrays / 列表的字典
 
 所有 ndarray 必须具有相同的长度。如果传递索引，它也必须与数组的长度相同。如果没有传递索引，结果将为`range(n)`，其中`n`是数组长度。
@@ -485,7 +443,7 @@ Out[44]: Index(['one', 'two'], dtype='object')
 In [45]: d = {"one": [1.0, 2.0, 3.0, 4.0], "two": [4.0, 3.0, 2.0, 1.0]}
 
 In [46]: pd.DataFrame(d)
-Out[46]: 
+Out[46]:
    one  two
 0  1.0  4.0
 1  2.0  3.0
@@ -493,15 +451,13 @@ Out[46]:
 3  4.0  1.0
 
 In [47]: pd.DataFrame(d, index=["a", "b", "c", "d"])
-Out[47]: 
+Out[47]:
    one  two
 a  1.0  4.0
 b  2.0  3.0
 c  3.0  2.0
 d  4.0  1.0
 ```
-
-
 
 ### 来自结构化或记录数组
 
@@ -513,31 +469,27 @@ In [48]: data = np.zeros((2,), dtype=[("A", "i4"), ("B", "f4"), ("C", "a10")])
 In [49]: data[:] = [(1, 2.0, "Hello"), (2, 3.0, "World")]
 
 In [50]: pd.DataFrame(data)
-Out[50]: 
+Out[50]:
    A    B         C
 0  1  2.0  b'Hello'
 1  2  3.0  b'World'
 
 In [51]: pd.DataFrame(data, index=["first", "second"])
-Out[51]: 
+Out[51]:
         A    B         C
 first   1  2.0  b'Hello'
 second  2  3.0  b'World'
 
 In [52]: pd.DataFrame(data, columns=["C", "A", "B"])
-Out[52]: 
+Out[52]:
           C  A    B
 0  b'Hello'  1  2.0
 1  b'World'  2  3.0
 ```
 
-
-
 笔记
 
 DataFrame 的工作原理并不像二维 NumPy ndarray。
-
-
 
 ### 来自字典列表
 
@@ -545,27 +497,23 @@ DataFrame 的工作原理并不像二维 NumPy ndarray。
 In [53]: data2 = [{"a": 1, "b": 2}, {"a": 5, "b": 10, "c": 20}]
 
 In [54]: pd.DataFrame(data2)
-Out[54]: 
+Out[54]:
    a   b     c
 0  1   2   NaN
 1  5  10  20.0
 
 In [55]: pd.DataFrame(data2, index=["first", "second"])
-Out[55]: 
+Out[55]:
         a   b     c
 first   1   2   NaN
 second  5  10  20.0
 
 In [56]: pd.DataFrame(data2, columns=["a", "b"])
-Out[56]: 
+Out[56]:
    a   b
 0  1   2
 1  5  10
 ```
-
-
-
-
 
 ### 来自元组的字典
 
@@ -581,18 +529,14 @@ In [57]: pd.DataFrame(
    ....:         ("b", "b"): {("A", "D"): 9, ("A", "B"): 10},
    ....:     }
    ....: )
-   ....: 
-Out[57]: 
-       a              b      
+   ....:
+Out[57]:
+       a              b
        b    a    c    a     b
 A B  1.0  4.0  5.0  8.0  10.0
   C  2.0  3.0  6.0  7.0   NaN
   D  NaN  NaN  NaN  NaN   9.0
 ```
-
-
-
-
 
 ### 来自系列
 
@@ -602,16 +546,12 @@ A B  1.0  4.0  5.0  8.0  10.0
 In [58]: ser = pd.Series(range(3), index=list("abc"), name="ser")
 
 In [59]: pd.DataFrame(ser)
-Out[59]: 
+Out[59]:
    ser
 a    0
 b    1
 c    2
 ```
-
-
-
-
 
 ### 来自命名元组列表
 
@@ -623,7 +563,7 @@ In [60]: from collections import namedtuple
 In [61]: Point = namedtuple("Point", "x y")
 
 In [62]: pd.DataFrame([Point(0, 0), Point(0, 3), (2, 3)])
-Out[62]: 
+Out[62]:
    x  y
 0  0  0
 1  0  3
@@ -632,16 +572,12 @@ Out[62]:
 In [63]: Point3D = namedtuple("Point3D", "x y z")
 
 In [64]: pd.DataFrame([Point3D(0, 0, 0), Point3D(0, 3, 5), Point(2, 3)])
-Out[64]: 
+Out[64]:
    x  y    z
 0  0  0  0.0
 1  0  3  5.0
 2  2  3  NaN
 ```
-
-
-
-
 
 ### 来自数据类列表
 
@@ -655,14 +591,12 @@ In [65]: from dataclasses import make_dataclass
 In [66]: Point = make_dataclass("Point", [("x", int), ("y", int)])
 
 In [67]: pd.DataFrame([Point(0, 0), Point(0, 3), Point(2, 3)])
-Out[67]: 
+Out[67]:
    x  y
 0  0  0
 1  0  3
 2  2  3
 ```
-
-
 
 **缺失数据**
 
@@ -676,14 +610,12 @@ Out[67]:
 
 ```
 In [68]: pd.DataFrame.from_dict(dict([("A", [1, 2, 3]), ("B", [4, 5, 6])]))
-Out[68]: 
+Out[68]:
    A  B
 0  1  4
 1  2  5
 2  3  6
 ```
-
-
 
 如果通过`orient='index'`，键将是行标签。在这种情况下，您还可以传递所需的列名称：
 
@@ -693,14 +625,12 @@ In [69]: pd.DataFrame.from_dict(
    ....:     orient="index",
    ....:     columns=["one", "two", "three"],
    ....: )
-   ....: 
-Out[69]: 
+   ....:
+Out[69]:
    one  two  three
 A    1    2      3
 B    4    5      6
 ```
-
-
 
 **DataFrame.from_records**
 
@@ -708,21 +638,17 @@ B    4    5      6
 
 ```
 In [70]: data
-Out[70]: 
+Out[70]:
 array([(1, 2., b'Hello'), (2, 3., b'World')],
       dtype=[('A', '<i4'), ('B', '<f4'), ('C', 'S10')])
 
 In [71]: pd.DataFrame.from_records(data, index="C")
-Out[71]: 
+Out[71]:
           A    B
-C               
+C
 b'Hello'  1  2.0
 b'World'  2  3.0
 ```
-
-
-
-
 
 ### 列选择、添加、删除
 
@@ -730,7 +656,7 @@ b'World'  2  3.0
 
 ```
 In [72]: df["one"]
-Out[72]: 
+Out[72]:
 a    1.0
 b    2.0
 c    3.0
@@ -742,15 +668,13 @@ In [73]: df["three"] = df["one"] * df["two"]
 In [74]: df["flag"] = df["one"] > 2
 
 In [75]: df
-Out[75]: 
+Out[75]:
    one  two  three   flag
 a  1.0  1.0    1.0  False
 b  2.0  2.0    4.0  False
 c  3.0  3.0    9.0   True
 d  NaN  4.0    NaN  False
 ```
-
-
 
 可以像字典一样删除或弹出列：
 
@@ -760,7 +684,7 @@ In [76]: del df["two"]
 In [77]: three = df.pop("three")
 
 In [78]: df
-Out[78]: 
+Out[78]:
    one   flag
 a  1.0  False
 b  2.0  False
@@ -768,15 +692,13 @@ c  3.0   True
 d  NaN  False
 ```
 
-
-
 当插入标量值时，它自然会传播以填充列：
 
 ```
 In [79]: df["foo"] = "bar"
 
 In [80]: df
-Out[80]: 
+Out[80]:
    one   flag  foo
 a  1.0  False  bar
 b  2.0  False  bar
@@ -784,23 +706,19 @@ c  3.0   True  bar
 d  NaN  False  bar
 ```
 
-
-
 当插入[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)与 不具有相同索引的时[`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)，它将符合 DataFrame 的索引：
 
 ```
 In [81]: df["one_trunc"] = df["one"][:2]
 
 In [82]: df
-Out[82]: 
+Out[82]:
    one   flag  foo  one_trunc
 a  1.0  False  bar        1.0
 b  2.0  False  bar        2.0
 c  3.0   True  bar        NaN
 d  NaN  False  bar        NaN
 ```
-
-
 
 您可以插入原始 ndarray，但它们的长度必须与 DataFrame 索引的长度匹配。
 
@@ -810,17 +728,13 @@ d  NaN  False  bar        NaN
 In [83]: df.insert(1, "bar", df["one"])
 
 In [84]: df
-Out[84]: 
+Out[84]:
    one  bar   flag  foo  one_trunc
 a  1.0  1.0  False  bar        1.0
 b  2.0  2.0  False  bar        2.0
 c  3.0  3.0   True  bar        NaN
 d  NaN  NaN  False  bar        NaN
 ```
-
-
-
-
 
 ### 在方法链中分配新列
 
@@ -830,7 +744,7 @@ d  NaN  NaN  False  bar        NaN
 In [85]: iris = pd.read_csv("data/iris.data")
 
 In [86]: iris.head()
-Out[86]: 
+Out[86]:
    SepalLength  SepalWidth  PetalLength  PetalWidth         Name
 0          5.1         3.5          1.4         0.2  Iris-setosa
 1          4.9         3.0          1.4         0.2  Iris-setosa
@@ -839,7 +753,7 @@ Out[86]:
 4          5.0         3.6          1.4         0.2  Iris-setosa
 
 In [87]: iris.assign(sepal_ratio=iris["SepalWidth"] / iris["SepalLength"]).head()
-Out[87]: 
+Out[87]:
    SepalLength  SepalWidth  PetalLength  PetalWidth         Name  sepal_ratio
 0          5.1         3.5          1.4         0.2  Iris-setosa     0.686275
 1          4.9         3.0          1.4         0.2  Iris-setosa     0.612245
@@ -847,14 +761,12 @@ Out[87]:
 3          4.6         3.1          1.5         0.2  Iris-setosa     0.673913
 4          5.0         3.6          1.4         0.2  Iris-setosa     0.720000
 ```
-
-
 
 在上面的示例中，我们插入了一个预先计算的值。我们还可以传入一个只有一个参数的函数，以便在分配给的 DataFrame 上进行计算。
 
 ```
 In [88]: iris.assign(sepal_ratio=lambda x: (x["SepalWidth"] / x["SepalLength"])).head()
-Out[88]: 
+Out[88]:
    SepalLength  SepalWidth  PetalLength  PetalWidth         Name  sepal_ratio
 0          5.1         3.5          1.4         0.2  Iris-setosa     0.686275
 1          4.9         3.0          1.4         0.2  Iris-setosa     0.612245
@@ -862,8 +774,6 @@ Out[88]:
 3          4.6         3.1          1.5         0.2  Iris-setosa     0.673913
 4          5.0         3.6          1.4         0.2  Iris-setosa     0.720000
 ```
-
-
 
 [`assign()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.assign.html#pandas.DataFrame.assign) **始终**返回数据的副本，保持原始 DataFrame 不变。
 
@@ -878,11 +788,9 @@ In [89]: (
    ....:     )
    ....:     .plot(kind="scatter", x="SepalRatio", y="PetalRatio")
    ....: )
-   ....: 
+   ....:
 Out[89]: <Axes: xlabel='SepalRatio', ylabel='PetalRatio'>
 ```
-
-
 
 ![../_images/basics_assign.png](https://pandas.pydata.org/docs/_images/basics_assign.png)
 
@@ -896,14 +804,12 @@ Out[89]: <Axes: xlabel='SepalRatio', ylabel='PetalRatio'>
 In [90]: dfa = pd.DataFrame({"A": [1, 2, 3], "B": [4, 5, 6]})
 
 In [91]: dfa.assign(C=lambda x: x["A"] + x["B"], D=lambda x: x["A"] + x["C"])
-Out[91]: 
+Out[91]:
    A  B  C   D
 0  1  4  5   6
 1  2  5  7   9
 2  3  6  9  12
 ```
-
-
 
 在第二个表达式中，`x['C']`将引用新创建的列，等于。`dfa['A'] + dfa['B']`
 
@@ -923,7 +829,7 @@ Out[91]:
 
 ```
 In [92]: df.loc["b"]
-Out[92]: 
+Out[92]:
 one            2.0
 bar            2.0
 flag         False
@@ -932,7 +838,7 @@ one_trunc      2.0
 Name: b, dtype: object
 
 In [93]: df.iloc[2]
-Out[93]: 
+Out[93]:
 one           3.0
 bar           3.0
 flag         True
@@ -941,11 +847,7 @@ one_trunc     NaN
 Name: c, dtype: object
 ```
 
-
-
 有关复杂的基于标签的索引和切片的更详尽的处理，请参阅[索引部分](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing)。我们将在[重新索引部分](https://pandas.pydata.org/docs/user_guide/basics.html#basics-reindexing)讨论重新索引/符合新标签集的基础知识 。
-
-
 
 ### 数据对齐和算术
 
@@ -957,7 +859,7 @@ In [94]: df = pd.DataFrame(np.random.randn(10, 4), columns=["A", "B", "C", "D"])
 In [95]: df2 = pd.DataFrame(np.random.randn(7, 3), columns=["A", "B", "C"])
 
 In [96]: df + df2
-Out[96]: 
+Out[96]:
           A         B         C   D
 0  0.045691 -0.014138  1.380871 NaN
 1 -0.955398 -1.501007  0.037181 NaN
@@ -971,13 +873,11 @@ Out[96]:
 9       NaN       NaN       NaN NaN
 ```
 
-
-
 [`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)在和之间执行操作时[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)，默认行为是对齐**列**上的**索引**，从而 按行[广播](https://numpy.org/doc/stable/user/basics.broadcasting.html)。例如：[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series) [`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)
 
 ```
 In [97]: df - df.iloc[0]
-Out[97]: 
+Out[97]:
           A         B         C         D
 0  0.000000  0.000000  0.000000  0.000000
 1 -1.359261 -0.248717 -0.453372 -1.754659
@@ -991,15 +891,13 @@ Out[97]:
 9  2.293786  1.856228  0.773289 -1.446531
 ```
 
-
-
 [有关对匹配和广播行为的显式控制，请参阅灵活的二元运算](https://pandas.pydata.org/docs/user_guide/basics.html#basics-binop)部分。
 
 标量的算术运算按元素进行：
 
 ```
 In [98]: df * 5 + 2
-Out[98]: 
+Out[98]:
            A         B         C          D
 0   3.359299 -0.124862  4.835102   3.381160
 1  -3.437003 -1.368449  2.568242  -5.392133
@@ -1013,7 +911,7 @@ Out[98]:
 9  14.828230  9.156280  8.701544  -3.851494
 
 In [99]: 1 / df
-Out[99]: 
+Out[99]:
           A          B         C           D
 0  3.678365  -2.353094  1.763605    3.620145
 1 -0.919624  -1.484363  8.799067   -0.676395
@@ -1027,7 +925,7 @@ Out[99]:
 9  0.389765   0.698687  0.746097   -0.854483
 
 In [100]: df ** 4
-Out[100]: 
+Out[100]:
            A             B         C             D
 0   0.005462  3.261689e-02  0.103370  5.822320e-03
 1   1.398165  2.059869e-01  0.000167  4.777482e+00
@@ -1041,8 +939,6 @@ Out[100]:
 9  43.329821  4.196326e+00  3.227153  1.875802e+00
 ```
 
-
-
 布尔运算符也按元素进行操作：
 
 ```
@@ -1051,35 +947,33 @@ In [101]: df1 = pd.DataFrame({"a": [1, 0, 1], "b": [0, 1, 1]}, dtype=bool)
 In [102]: df2 = pd.DataFrame({"a": [0, 1, 1], "b": [1, 1, 0]}, dtype=bool)
 
 In [103]: df1 & df2
-Out[103]: 
+Out[103]:
        a      b
 0  False  False
 1  False   True
 2   True  False
 
 In [104]: df1 | df2
-Out[104]: 
+Out[104]:
       a     b
 0  True  True
 1  True  True
 2  True  True
 
 In [105]: df1 ^ df2
-Out[105]: 
+Out[105]:
        a      b
 0   True   True
 1   True  False
 2  False   True
 
 In [106]: -df1
-Out[106]: 
+Out[106]:
        a      b
 0  False   True
 1   True  False
 2  False  False
 ```
-
-
 
 ### 转置
 
@@ -1088,7 +982,7 @@ Out[106]:
 ```
 # only show the first 5 rows
 In [107]: df[:5].T
-Out[107]: 
+Out[107]:
           0         1         2         3         4
 A  0.271860 -1.087401  0.524988 -1.039268  0.844885
 B -0.424972 -0.673690  0.404705 -0.370647  1.075770
@@ -1096,17 +990,13 @@ C  0.567020  0.113648  0.577046 -1.157892 -0.109050
 D  0.276232 -1.478427 -1.715002 -1.344312  1.643563
 ```
 
-
-
-
-
 ### DataFrame 与 NumPy 函数的互操作性
 
 大多数 NumPy 函数可以直接在[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)和上调用[`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)。
 
 ```
 In [108]: np.exp(df)
-Out[108]: 
+Out[108]:
            A         B         C         D
 0   1.312403  0.653788  1.763006  1.318154
 1   0.337092  0.509824  1.120358  0.227996
@@ -1120,7 +1010,7 @@ Out[108]:
 9  13.009059  4.183951  3.820223  0.310274
 
 In [109]: np.asarray(df)
-Out[109]: 
+Out[109]:
 array([[ 0.2719, -0.425 ,  0.567 ,  0.2762],
        [-1.0874, -0.6737,  0.1136, -1.4784],
        [ 0.525 ,  0.4047,  0.577 , -1.715 ],
@@ -1133,8 +1023,6 @@ array([[ 0.2719, -0.425 ,  0.567 ,  0.2762],
        [ 2.5656,  1.4313,  1.3403, -1.1703]])
 ```
 
-
-
 [`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)它并不是 ndarray 的直接替代品，因为它的索引语义和数据模型在某些地方与 n 维数组有很大不同。
 
 [`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)实现，这使得它可以与 NumPy 的[通用函数](https://numpy.org/doc/stable/reference/ufuncs.html)`__array_ufunc__`一起使用 。
@@ -1145,15 +1033,13 @@ ufunc 应用于 a 中的底层数组[`Series`](https://pandas.pydata.org/docs/re
 In [110]: ser = pd.Series([1, 2, 3, 4])
 
 In [111]: np.exp(ser)
-Out[111]: 
+Out[111]:
 0     2.718282
 1     7.389056
 2    20.085537
 3    54.598150
 dtype: float64
 ```
-
-
 
 当多个[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)传递给 ufunc 时，它们会在执行操作之前对齐。
 
@@ -1165,28 +1051,26 @@ In [112]: ser1 = pd.Series([1, 2, 3], index=["a", "b", "c"])
 In [113]: ser2 = pd.Series([1, 3, 5], index=["b", "a", "c"])
 
 In [114]: ser1
-Out[114]: 
+Out[114]:
 a    1
 b    2
 c    3
 dtype: int64
 
 In [115]: ser2
-Out[115]: 
+Out[115]:
 b    1
 a    3
 c    5
 dtype: int64
 
 In [116]: np.remainder(ser1, ser2)
-Out[116]: 
+Out[116]:
 a    1
 b    0
 c    3
 dtype: int64
 ```
-
-
 
 像往常一样，取两个索引的并集，并且不重叠的值用缺失值填充。
 
@@ -1194,22 +1078,20 @@ dtype: int64
 In [117]: ser3 = pd.Series([2, 4, 6], index=["b", "c", "d"])
 
 In [118]: ser3
-Out[118]: 
+Out[118]:
 b    2
 c    4
 d    6
 dtype: int64
 
 In [119]: np.remainder(ser1, ser3)
-Out[119]: 
+Out[119]:
 a    NaN
 b    0.0
 c    3.0
 d    NaN
 dtype: float64
 ```
-
-
 
 当二进制 ufunc 应用于 a[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)和时[`Index`](https://pandas.pydata.org/docs/reference/api/pandas.Index.html#pandas.Index)，[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series) 实现优先并[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)返回 a。
 
@@ -1219,14 +1101,12 @@ In [120]: ser = pd.Series([1, 2, 3])
 In [121]: idx = pd.Index([4, 5, 6])
 
 In [122]: np.maximum(ser, idx)
-Out[122]: 
+Out[122]:
 0    4
 1    5
 2    6
 dtype: int64
 ```
-
-
 
 例如， NumPy ufunc 可以安全地应用于[`Series`](https://pandas.pydata.org/docs/reference/api/pandas.Series.html#pandas.Series)非 ndarray 数组[`arrays.SparseArray`](https://pandas.pydata.org/docs/reference/api/pandas.arrays.SparseArray.html#pandas.arrays.SparseArray)（请参阅[稀疏计算](https://pandas.pydata.org/docs/user_guide/sparse.html#sparse-calculation)）。如果可能，应用 ufunc 而不将基础数据转换为 ndarray。
 
@@ -1251,25 +1131,25 @@ In [125]: baseball.info()
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 100 entries, 0 to 99
 Data columns (total 23 columns):
- #   Column  Non-Null Count  Dtype  
----  ------  --------------  -----  
- 0   id      100 non-null    int64  
- 1   player  100 non-null    object 
- 2   year    100 non-null    int64  
- 3   stint   100 non-null    int64  
- 4   team    100 non-null    object 
- 5   lg      100 non-null    object 
- 6   g       100 non-null    int64  
- 7   ab      100 non-null    int64  
- 8   r       100 non-null    int64  
- 9   h       100 non-null    int64  
- 10  X2b     100 non-null    int64  
- 11  X3b     100 non-null    int64  
- 12  hr      100 non-null    int64  
+ #   Column  Non-Null Count  Dtype
+---  ------  --------------  -----
+ 0   id      100 non-null    int64
+ 1   player  100 non-null    object
+ 2   year    100 non-null    int64
+ 3   stint   100 non-null    int64
+ 4   team    100 non-null    object
+ 5   lg      100 non-null    object
+ 6   g       100 non-null    int64
+ 7   ab      100 non-null    int64
+ 8   r       100 non-null    int64
+ 9   h       100 non-null    int64
+ 10  X2b     100 non-null    int64
+ 11  X3b     100 non-null    int64
+ 12  hr      100 non-null    int64
  13  rbi     100 non-null    float64
  14  sb      100 non-null    float64
  15  cs      100 non-null    float64
- 16  bb      100 non-null    int64  
+ 16  bb      100 non-null    int64
  17  so      100 non-null    float64
  18  ibb     100 non-null    float64
  19  hbp     100 non-null    float64
@@ -1279,8 +1159,6 @@ Data columns (total 23 columns):
 dtypes: float64(9), int64(11), object(3)
 memory usage: 18.1+ KB
 ```
-
-
 
 但是，使用[`DataFrame.to_string()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_string.html#pandas.DataFrame.to_string)将返回表格形式的字符串表示形式 [`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)，尽管它并不总是适合控制台宽度：
 
@@ -1309,13 +1187,11 @@ In [126]: print(baseball.iloc[-20:, :12].to_string())
 99  89534  alomasa02  2007      1  NYN  NL    8   22   1    3    1    0
 ```
 
-
-
 默认情况下，宽数据帧将跨多行打印：
 
 ```
 In [127]: pd.DataFrame(np.random.randn(3, 12))
-Out[127]: 
+Out[127]:
          0         1         2   ...        9         10        11
 0 -1.226825  0.769804 -1.281247  ... -1.110336 -0.619976  0.149748
 1 -0.732339  0.687738  0.176444  ...  1.462696 -1.743161 -0.826591
@@ -1324,15 +1200,13 @@ Out[127]:
 [3 rows x 12 columns]
 ```
 
-
-
 您可以通过设置选项来更改单行打印的数量`display.width` ：
 
 ```
 In [128]: pd.set_option("display.width", 40)  # default is 80
 
 In [129]: pd.DataFrame(np.random.randn(3, 12))
-Out[129]: 
+Out[129]:
          0         1         2   ...        9         10        11
 0 -2.182937  0.380396  0.084844  ... -0.023688  2.410179  1.450520
 1  0.206053 -0.251905 -2.213588  ... -0.025747 -0.988387  0.094055
@@ -1340,8 +1214,6 @@ Out[129]:
 
 [3 rows x 12 columns]
 ```
-
-
 
 您可以通过设置来调整各个列的最大宽度`display.max_colwidth`
 
@@ -1353,12 +1225,12 @@ In [130]: datafile = {
    .....:         "media/user_name/storage/folder_02/filename_02",
    .....:     ],
    .....: }
-   .....: 
+   .....:
 
 In [131]: pd.set_option("display.max_colwidth", 30)
 
 In [132]: pd.DataFrame(datafile)
-Out[132]: 
+Out[132]:
       filename                           path
 0  filename_01  media/user_name/storage/fo...
 1  filename_02  media/user_name/storage/fo...
@@ -1366,13 +1238,11 @@ Out[132]:
 In [133]: pd.set_option("display.max_colwidth", 100)
 
 In [134]: pd.DataFrame(datafile)
-Out[134]: 
+Out[134]:
       filename                                           path
 0  filename_01  media/user_name/storage/folder_01/filename_01
 1  filename_02  media/user_name/storage/folder_02/filename_02
 ```
-
-
 
 您还可以通过选项禁用此功能`expand_frame_repr`。这会将表格打印在一个块中。
 
@@ -1384,7 +1254,7 @@ Out[134]:
 In [135]: df = pd.DataFrame({"foo1": np.random.randn(5), "foo2": np.random.randn(5)})
 
 In [136]: df
-Out[136]: 
+Out[136]:
        foo1      foo2
 0  1.126203  0.781836
 1 -0.977349 -1.071357
@@ -1393,7 +1263,7 @@ Out[136]:
 4 -1.282782  0.583787
 
 In [137]: df.foo1
-Out[137]: 
+Out[137]:
 0    1.126203
 1   -0.977349
 2    1.474071
@@ -1401,8 +1271,6 @@ Out[137]:
 4   -1.282782
 Name: foo1, dtype: float64
 ```
-
-
 
 这些列还连接到[IPython](https://ipython.org/) 完成机制，因此可以使用制表符完成：
 

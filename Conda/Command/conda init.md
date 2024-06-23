@@ -1,10 +1,6 @@
 # `conda init`
 
-
-
 初始化 conda 以进行 shell 交互。
-
-
 
 ```
 usage: conda init [-h] [--all] [--user] [--no-user] [--system] [--reverse]
@@ -59,8 +55,6 @@ usage: conda init [-h] [--all] [--user] [--no-user] [--system] [--reverse]
 - -q, --quiet
 
   不显示进度条。
-
-
 
 conda 功能的关键部分要求它直接与调用 conda 的 shell 交互。 conda activate和conda deactivate命令是 shell 级命令。也就是说，它们影响正在交互的 shell 上下文的状态（例如环境变量）。其他核心命令（例如 conda create和conda install）也必须与 shell 环境交互。因此，它们以特定于每个 shell 的方式实现。必须配置每个 shell 才能使用它们。
 

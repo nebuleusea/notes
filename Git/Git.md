@@ -14,4 +14,3 @@ git pull --rebase origin master
 
 symboy
 ```
-

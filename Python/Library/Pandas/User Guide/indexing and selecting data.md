@@ -20,15 +20,13 @@ Python 和 NumPy 索引运算符`[]`和属性运算符`.` 可以在各种用例�
 
 请参阅[食谱](https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook-selection)了解一些高级策略。
 
-
-
 ## 索引的不同选择
 
 对象选择已添加了许多用户请求的附加内容，以支持更明确的基于位置的索引。 pandas 现在支持三种类型的多轴索引。
 
 - `.loc`主要基于标签，但也可以与布尔数组一起使用。当找不到项目时`.loc`会引发。`KeyError`允许的输入有：
 
-  > - 单个标签，例如`5`or `'a'`（请注意，它`5`被解释为 索引的*标签。此用途***不是**沿索引的整数位置。）。
+  > - 单个标签，例如`5`or `'a'`（请注意，它`5`被解释为 索引的\*标签。此用途**\*不是**沿索引的整数位置。）。
   > - 标签列表或数组。`['a', 'b', 'c']`
   > - 带有标签的切片对象`'a':'f'`（请注意，与通常的 Python 切片相反，当索引中存在时，起始点和终止点**都包含在内！请参阅**[使用标签切片](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-slicing-with-labels) 和[包含端点](https://pandas.pydata.org/docs/user_guide/advanced.html#advanced-endpoints-are-inclusive)。）
   > - 布尔数组（任何`NA`值都将被视为`False`）。
@@ -61,8 +59,6 @@ Python 和 NumPy 索引运算符`[]`和属性运算符`.` 可以在各种用例�
 | 系列     | `s.loc[indexer]`                     |
 | 数据框   | `df.loc[row_indexer,column_indexer]` |
 
-
-
 ## 基本
 
 [正如上一节](https://pandas.pydata.org/docs/user_guide/basics.html#basics)介绍数据结构时提到的，索引的主要功能`[]`（`__getitem__` 对于那些熟悉在 Python 中实现类行为的人来说）是选择低维切片。下表显示了使用 索引 pandas 对象时的返回类型值`[]`：
@@ -79,10 +75,10 @@ In [1]: dates = pd.date_range('1/1/2000', periods=8)
 
 In [2]: df = pd.DataFrame(np.random.randn(8, 4),
    ...:                   index=dates, columns=['A', 'B', 'C', 'D'])
-   ...: 
+   ...:
 
 In [3]: df
-Out[3]: 
+Out[3]:
                    A         B         C         D
 2000-01-01  0.469112 -0.282863 -1.509059 -1.135632
 2000-01-02  1.212112 -0.173215  0.119209 -1.044236
@@ -93,8 +89,6 @@ Out[3]:
 2000-01-07  0.404705  0.577046 -1.715002 -1.039268
 2000-01-08 -0.370647 -1.157892 -1.344312  0.844885
 ```
-
-
 
 笔记
 
@@ -109,13 +103,11 @@ In [5]: s[dates[5]]
 Out[5]: -0.6736897080883706
 ```
 
-
-
 您可以传递列列表以`[]`按该顺序选择列。如果 DataFrame 中不包含列，则会引发异常。也可以这样设置多列：
 
 ```
 In [6]: df
-Out[6]: 
+Out[6]:
                    A         B         C         D
 2000-01-01  0.469112 -0.282863 -1.509059 -1.135632
 2000-01-02  1.212112 -0.173215  0.119209 -1.044236
@@ -129,7 +121,7 @@ Out[6]:
 In [7]: df[['B', 'A']] = df[['A', 'B']]
 
 In [8]: df
-Out[8]: 
+Out[8]:
                    A         B         C         D
 2000-01-01 -0.282863  0.469112 -1.509059 -1.135632
 2000-01-02 -0.173215  1.212112  0.119209 -1.044236
@@ -141,8 +133,6 @@ Out[8]:
 2000-01-08 -1.157892 -0.370647 -1.344312  0.844885
 ```
 
-
-
 您可能会发现这对于将转换（就地）应用于列的子集很有用。
 
 警告
@@ -153,7 +143,7 @@ Out[8]:
 
 ```
 In [9]: df[['A', 'B']]
-Out[9]: 
+Out[9]:
                    A         B
 2000-01-01 -0.282863  0.469112
 2000-01-02 -0.173215  1.212112
@@ -167,7 +157,7 @@ Out[9]:
 In [10]: df.loc[:, ['B', 'A']] = df[['A', 'B']]
 
 In [11]: df[['A', 'B']]
-Out[11]: 
+Out[11]:
                    A         B
 2000-01-01 -0.282863  0.469112
 2000-01-02 -0.173215  1.212112
@@ -179,15 +169,13 @@ Out[11]:
 2000-01-08 -1.157892 -0.370647
 ```
 
-
-
 交换列值的正确方法是使用原始值：
 
 ```
 In [12]: df.loc[:, ['B', 'A']] = df[['A', 'B']].to_numpy()
 
 In [13]: df[['A', 'B']]
-Out[13]: 
+Out[13]:
                    A         B
 2000-01-01  0.469112 -0.282863
 2000-01-02  1.212112 -0.173215
@@ -199,15 +187,13 @@ Out[13]:
 2000-01-08 -0.370647 -1.157892
 ```
 
-
-
 `Series`但是，pandas 在设置和`DataFrame`from时不会对齐 AXES，`.iloc` 因为它`.iloc`是按位置操作的。
 
 这将会修改，`df`因为在赋值之前未完成列对齐。
 
 ```
 In [14]: df[['A', 'B']]
-Out[14]: 
+Out[14]:
                    A         B
 2000-01-01  0.469112 -0.282863
 2000-01-02  1.212112 -0.173215
@@ -221,7 +207,7 @@ Out[14]:
 In [15]: df.iloc[:, [1, 0]] = df[['A', 'B']]
 
 In [16]: df[['A','B']]
-Out[16]: 
+Out[16]:
                    A         B
 2000-01-01 -0.282863  0.469112
 2000-01-02 -0.173215  1.212112
@@ -233,8 +219,6 @@ Out[16]:
 2000-01-08 -1.157892 -0.370647
 ```
 
-
-
 ## 属性访问
 
 您可以直接将 a 上的索引`Series`或 a 上的列`DataFrame`作为属性访问：
@@ -245,14 +229,12 @@ In [17]: sa = pd.Series([1, 2, 3], index=list('abc'))
 In [18]: dfa = df.copy()
 ```
 
-
-
 ```
 In [19]: sa.b
 Out[19]: 2
 
 In [20]: dfa.A
-Out[20]: 
+Out[20]:
 2000-01-01   -0.282863
 2000-01-02   -0.173215
 2000-01-03   -2.104569
@@ -264,13 +246,11 @@ Out[20]:
 Freq: D, Name: A, dtype: float64
 ```
 
-
-
 ```
 In [21]: sa.a = 5
 
 In [22]: sa
-Out[22]: 
+Out[22]:
 a    5
 b    2
 c    3
@@ -279,7 +259,7 @@ dtype: int64
 In [23]: dfa.A = list(range(len(dfa.index)))  # ok if A already exists
 
 In [24]: dfa
-Out[24]: 
+Out[24]:
             A         B         C         D
 2000-01-01  0  0.469112 -1.509059 -1.135632
 2000-01-02  1  1.212112  0.119209 -1.044236
@@ -293,7 +273,7 @@ Out[24]:
 In [25]: dfa['A'] = list(range(len(dfa.index)))  # use this form to create a new column
 
 In [26]: dfa
-Out[26]: 
+Out[26]:
             A         B         C         D
 2000-01-01  0  0.469112 -1.509059 -1.135632
 2000-01-02  1  1.212112  0.119209 -1.044236
@@ -304,8 +284,6 @@ Out[26]:
 2000-01-07  6  0.404705 -1.715002 -1.039268
 2000-01-08  7 -0.370647 -1.344312  0.844885
 ```
-
-
 
 警告
 
@@ -324,14 +302,12 @@ In [27]: x = pd.DataFrame({'x': [1, 2, 3], 'y': [3, 4, 5]})
 In [28]: x.iloc[1] = {'x': 9, 'y': 99}
 
 In [29]: x
-Out[29]: 
+Out[29]:
    x   y
 0  1   3
 1  9  99
 2  3   5
 ```
-
-
 
 您可以使用属性访问来修改 Series 的现有元素或 DataFrame 的列，但要小心；如果您尝试使用属性访问来创建新列，它会创建一个新属性而不是新列，这会引发`UserWarning`：
 
@@ -341,14 +317,12 @@ In [30]: df_new = pd.DataFrame({'one': [1., 2., 3.]})
 In [31]: df_new.two = [4, 5, 6]
 
 In [32]: df_new
-Out[32]: 
+Out[32]:
    one
 0  1.0
 1  2.0
 2  3.0
 ```
-
-
 
 ## 切片范围
 
@@ -358,7 +332,7 @@ Out[32]:
 
 ```
 In [33]: s[:5]
-Out[33]: 
+Out[33]:
 2000-01-01    0.469112
 2000-01-02    1.212112
 2000-01-03   -0.861849
@@ -367,7 +341,7 @@ Out[33]:
 Freq: D, Name: A, dtype: float64
 
 In [34]: s[::2]
-Out[34]: 
+Out[34]:
 2000-01-01    0.469112
 2000-01-03   -0.861849
 2000-01-05   -0.424972
@@ -375,7 +349,7 @@ Out[34]:
 Freq: 2D, Name: A, dtype: float64
 
 In [35]: s[::-1]
-Out[35]: 
+Out[35]:
 2000-01-08   -0.370647
 2000-01-07    0.404705
 2000-01-06   -0.673690
@@ -387,8 +361,6 @@ Out[35]:
 Freq: -1D, Name: A, dtype: float64
 ```
 
-
-
 请注意，设置也有效：
 
 ```
@@ -397,7 +369,7 @@ In [36]: s2 = s.copy()
 In [37]: s2[:5] = 0
 
 In [38]: s2
-Out[38]: 
+Out[38]:
 2000-01-01    0.000000
 2000-01-02    0.000000
 2000-01-03    0.000000
@@ -409,20 +381,18 @@ Out[38]:
 Freq: D, Name: A, dtype: float64
 ```
 
-
-
 `[]` **使用 DataFrame，在切片**内部切片行。这在很大程度上是为了方便而提供的，因为这是一种常见的操作。
 
 ```
 In [39]: df[:3]
-Out[39]: 
+Out[39]:
                    A         B         C         D
 2000-01-01 -0.282863  0.469112 -1.509059 -1.135632
 2000-01-02 -0.173215  1.212112  0.119209 -1.044236
 2000-01-03 -2.104569 -0.861849 -0.494929  1.071804
 
 In [40]: df[::-1]
-Out[40]: 
+Out[40]:
                    A         B         C         D
 2000-01-08 -1.157892 -0.370647 -1.344312  0.844885
 2000-01-07  0.577046  0.404705 -1.715002 -1.039268
@@ -433,10 +403,6 @@ Out[40]:
 2000-01-02 -0.173215  1.212112  0.119209 -1.044236
 2000-01-01 -0.282863  0.469112 -1.509059 -1.135632
 ```
-
-
-
-
 
 ## 按标签选择
 
@@ -452,42 +418,42 @@ Out[40]:
 > In [41]: dfl = pd.DataFrame(np.random.randn(5, 4),
 >    ....:                    columns=list('ABCD'),
 >    ....:                    index=pd.date_range('20130101', periods=5))
->    ....: 
-> 
+>    ....:
+>
 > In [42]: dfl
-> Out[42]: 
+> Out[42]:
 >                    A         B         C         D
 > 2013-01-01  1.075770 -0.109050  1.643563 -1.469388
 > 2013-01-02  0.357021 -0.674600 -1.776904 -0.968914
 > 2013-01-03 -1.294524  0.413738  0.276662 -0.472035
 > 2013-01-04 -0.013960 -0.362543 -0.006154 -0.923061
 > 2013-01-05  0.895717  0.805244 -1.206412  2.565646
-> 
+>
 > In [43]: dfl.loc[2:3]
 > ---------------------------------------------------------------------------
 > TypeError                                 Traceback (most recent call last)
 > Cell In[43], line 1
 > ----> 1 dfl.loc[2:3]
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexing.py:1191, in _LocationIndexer.__getitem__(self, key)
 >    1189 maybe_callable = com.apply_if_callable(key, self.obj)
 >    1190 maybe_callable = self._check_deprecated_callable_usage(key, maybe_callable)
 > -> 1191 return self._getitem_axis(maybe_callable, axis=axis)
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexing.py:1411, in _LocIndexer._getitem_axis(self, key, axis)
 >    1409 if isinstance(key, slice):
 >    1410     self._validate_key(key, axis)
 > -> 1411     return self._get_slice_axis(key, axis=axis)
 >    1412 elif com.is_bool_indexer(key):
 >    1413     return self._getbool_axis(key, axis=axis)
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexing.py:1443, in _LocIndexer._get_slice_axis(self, slice_obj, axis)
 >    1440     return obj.copy(deep=False)
 >    1442 labels = obj._get_axis(axis)
 > -> 1443 indexer = labels.slice_indexer(slice_obj.start, slice_obj.stop, slice_obj.step)
 >    1445 if isinstance(indexer, slice):
 >    1446     return self.obj._slice(indexer, axis=axis)
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexes/datetimes.py:682, in DatetimeIndex.slice_indexer(self, start, end, step)
 >     674 # GH#33146 if start and end are combinations of str and None and Index is not
 >     675 # monotonic, we can not use Index.slice_indexer because it does not honor the
@@ -500,7 +466,7 @@ Out[40]:
 > --> 682     return Index.slice_indexer(self, start, end, step)
 >     684 mask = np.array(True)
 >     685 in_index = True
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexes/base.py:6662, in Index.slice_indexer(self, start, end, step)
 >    6618 def slice_indexer(
 >    6619     self,
@@ -510,21 +476,21 @@ Out[40]:
 >    6623 ) -> slice:
 >    6624     """
 >    6625     Compute the slice indexer for input labels and step.
->    6626 
+>    6626
 >    (...)
 >    6660     slice(1, 3, None)
 >    6661     """
 > -> 6662     start_slice, end_slice = self.slice_locs(start, end, step=step)
 >    6664     # return a slice
 >    6665     if not is_scalar(start_slice):
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexes/base.py:6879, in Index.slice_locs(self, start, end, step)
 >    6877 start_slice = None
 >    6878 if start is not None:
 > -> 6879     start_slice = self.get_slice_bound(start, "left")
 >    6880 if start_slice is None:
 >    6881     start_slice = 0
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexes/base.py:6794, in Index.get_slice_bound(self, label, side)
 >    6790 original_label = label
 >    6792 # For datetime indices label may be a string that has to be converted
@@ -532,7 +498,7 @@ Out[40]:
 > -> 6794 label = self._maybe_cast_slice_bound(label, side)
 >    6796 # we need to look up the label
 >    6797 try:
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexes/datetimes.py:642, in DatetimeIndex._maybe_cast_slice_bound(self, label, side)
 >     637 if isinstance(label, dt.date) and not isinstance(label, dt.datetime):
 >     638     # Pandas supports slicing with dates, treated as datetimes at midnight.
@@ -541,18 +507,18 @@ Out[40]:
 > --> 642 label = super()._maybe_cast_slice_bound(label, side)
 >     643 self._data._assert_tzawareness_compat(label)
 >     644 return Timestamp(label)
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexes/datetimelike.py:378, in DatetimeIndexOpsMixin._maybe_cast_slice_bound(self, label, side)
 >     376     return lower if side == "left" else upper
 >     377 elif not isinstance(label, self._data._recognized_scalars):
 > --> 378     self._raise_invalid_indexer("slice", label)
 >     380 return label
-> 
+>
 > File ~/work/pandas/pandas/pandas/core/indexes/base.py:4301, in Index._raise_invalid_indexer(self, form, key, reraise)
 >    4299 if reraise is not lib.no_default:
 >    4300     raise TypeError(msg) from reraise
 > -> 4301 raise TypeError(msg)
-> 
+>
 > TypeError: cannot do slice indexing on DatetimeIndex with these indexers [2] of type int
 > ```
 
@@ -560,20 +526,18 @@ Out[40]:
 
 ```
 In [44]: dfl.loc['20130102':'20130104']
-Out[44]: 
+Out[44]:
                    A         B         C         D
 2013-01-02  0.357021 -0.674600 -1.776904 -0.968914
 2013-01-03 -1.294524  0.413738  0.276662 -0.472035
 2013-01-04 -0.013960 -0.362543 -0.006154 -0.923061
 ```
 
-
-
 pandas 提供了一套方法来实现**纯粹基于标签的索引**。这是一个严格的基于包含的协议。要求的每个标签都必须在索引中，否则`KeyError`将引发 a 。切片时，如果索引中存在，则*包含*开始边界**和**停止边界。整数是有效的标签，但它们指的是标签**而不是位置**。
 
 属性`.loc`是主要的访问方法。以下是有效的输入：
 
-- 单个标签，例如`5`or `'a'`（请注意，它`5`被解释为索引的*标签。此用途***不是**沿索引的整数位置。）。
+- 单个标签，例如`5`or `'a'`（请注意，它`5`被解释为索引的\*标签。此用途**\*不是**沿索引的整数位置。）。
 - 标签列表或数组。`['a', 'b', 'c']`
 - 带有标签的切片对象`'a':'f'`（请注意，与通常的 Python 切片相反，当索引中存在时，起始点和终止点**都包含在内！请参阅**[使用标签切片](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-slicing-with-labels)。
 - 一个布尔数组。
@@ -583,7 +547,7 @@ pandas 提供了一套方法来实现**纯粹基于标签的索引**。这是一
 In [45]: s1 = pd.Series(np.random.randn(6), index=list('abcdef'))
 
 In [46]: s1
-Out[46]: 
+Out[46]:
 a    1.431256
 b    1.340309
 c   -1.170299
@@ -593,7 +557,7 @@ f    0.813850
 dtype: float64
 
 In [47]: s1.loc['c':]
-Out[47]: 
+Out[47]:
 c   -1.170299
 d   -0.226169
 e    0.410835
@@ -604,15 +568,13 @@ In [48]: s1.loc['b']
 Out[48]: 1.3403088497993827
 ```
 
-
-
 请注意，设置也有效：
 
 ```
 In [49]: s1.loc['c':] = 0
 
 In [50]: s1
-Out[50]: 
+Out[50]:
 a    1.431256
 b    1.340309
 c    0.000000
@@ -622,18 +584,16 @@ f    0.000000
 dtype: float64
 ```
 
-
-
 使用数据框：
 
 ```
 In [51]: df1 = pd.DataFrame(np.random.randn(6, 4),
    ....:                    index=list('abcdef'),
    ....:                    columns=list('ABCD'))
-   ....: 
+   ....:
 
 In [52]: df1
-Out[52]: 
+Out[52]:
           A         B         C         D
 a  0.132003 -0.827317 -0.076467 -1.187678
 b  1.130127 -1.436737 -1.413681  1.607920
@@ -643,33 +603,29 @@ e  0.545952 -1.219217 -1.226825  0.769804
 f -1.281247 -0.727707 -0.121306 -0.097883
 
 In [53]: df1.loc[['a', 'b', 'd'], :]
-Out[53]: 
+Out[53]:
           A         B         C         D
 a  0.132003 -0.827317 -0.076467 -1.187678
 b  1.130127 -1.436737 -1.413681  1.607920
 d  0.974466 -2.006747 -0.410001 -0.078638
 ```
 
-
-
 通过标签切片访问：
 
 ```
 In [54]: df1.loc['d':, 'A':'C']
-Out[54]: 
+Out[54]:
           A         B         C
 d  0.974466 -2.006747 -0.410001
 e  0.545952 -1.219217 -1.226825
 f -1.281247 -0.727707 -0.121306
 ```
 
-
-
 要使用标签获取横截面（相当于`df.xs('a')`）：
 
 ```
 In [55]: df1.loc['a']
-Out[55]: 
+Out[55]:
 A    0.132003
 B   -0.827317
 C   -0.076467
@@ -677,13 +633,11 @@ D   -1.187678
 Name: a, dtype: float64
 ```
 
-
-
 使用布尔数组获取值：
 
 ```
 In [56]: df1.loc['a'] > 0
-Out[56]: 
+Out[56]:
 A     True
 B    False
 C    False
@@ -691,7 +645,7 @@ D    False
 Name: a, dtype: bool
 
 In [57]: df1.loc[:, df1.loc['a'] > 0]
-Out[57]: 
+Out[57]:
           A
 a  0.132003
 b  1.130127
@@ -701,27 +655,23 @@ e  0.545952
 f -1.281247
 ```
 
-
-
 布尔数组中的 NA 值传播为`False`：
 
 ```
 In [58]: mask = pd.array([True, False, True, False, pd.NA, False], dtype="boolean")
 
 In [59]: mask
-Out[59]: 
+Out[59]:
 <BooleanArray>
 [True, False, True, False, <NA>, False]
 Length: 6, dtype: boolean
 
 In [60]: df1[mask]
-Out[60]: 
+Out[60]:
           A         B         C         D
 a  0.132003 -0.827317 -0.076467 -1.187678
 c  1.024180  0.569605  0.875906 -2.211372
 ```
-
-
 
 为了显式获取值：
 
@@ -731,32 +681,26 @@ In [61]: df1.loc['a', 'A']
 Out[61]: 0.13200317033032932
 ```
 
-
-
-
-
 ### 带标签切片
 
-与切片一起使用时`.loc`，如果索引中同时存在开始和停止标签，则返回位于两者之间（包括它们）*的元素：*
+与切片一起使用时`.loc`，如果索引中同时存在开始和停止标签，则返回位于两者之间（包括它们）_的元素：_
 
 ```
 In [62]: s = pd.Series(list('abcde'), index=[0, 3, 2, 5, 4])
 
 In [63]: s.loc[3:5]
-Out[63]: 
+Out[63]:
 3    b
 2    c
 5    d
 dtype: object
 ```
 
-
-
 如果两者中至少有一个不存在，但索引已排序，并且可以与开始和停止标签进行比较，则通过选择*排名*在两者之间的标签，切片仍将按预期工作：
 
 ```
 In [64]: s.sort_index()
-Out[64]: 
+Out[64]:
 0    a
 2    c
 3    b
@@ -765,15 +709,13 @@ Out[64]:
 dtype: object
 
 In [65]: s.sort_index().loc[1:6]
-Out[65]: 
+Out[65]:
 2    c
 3    b
 4    e
 5    d
 dtype: object
 ```
-
-
 
 但是，如果两者中至少有一个不存在*并且*索引未排序，则会引发错误（因为否则计算量会很大，并且对于混合类型索引可能不明确）。例如，在上面的例子中，`s.loc[1:6]`会引发`KeyError`.
 
@@ -783,20 +725,16 @@ dtype: object
 In [66]: s = pd.Series(list('abcdef'), index=[0, 3, 2, 5, 4, 2])
 
 In [67]: s.loc[3:5]
-Out[67]: 
+Out[67]:
 3    b
 2    c
 5    d
 dtype: object
 ```
 
-
-
 此外，如果索引具有重复的标签*，并且*开始或停止标签重复，则会引发错误。例如，在上面的例子中，`s.loc[2:5]`会引发一个`KeyError`.
 
 有关重复标签的更多信息，请参阅 [重复标签](https://pandas.pydata.org/docs/user_guide/duplicates.html#duplicates)。
-
-
 
 ## 按位置
 
@@ -819,7 +757,7 @@ pandas 提供了一套方法来获得**纯粹基于整数的索引**。语义紧
 In [68]: s1 = pd.Series(np.random.randn(5), index=list(range(0, 10, 2)))
 
 In [69]: s1
-Out[69]: 
+Out[69]:
 0    0.695775
 2    0.341734
 4    0.959726
@@ -828,7 +766,7 @@ Out[69]:
 dtype: float64
 
 In [70]: s1.iloc[:3]
-Out[70]: 
+Out[70]:
 0    0.695775
 2    0.341734
 4    0.959726
@@ -838,15 +776,13 @@ In [71]: s1.iloc[3]
 Out[71]: -1.110336102891167
 ```
 
-
-
 请注意，设置也有效：
 
 ```
 In [72]: s1.iloc[:3] = 0
 
 In [73]: s1
-Out[73]: 
+Out[73]:
 0    0.000000
 2    0.000000
 4    0.000000
@@ -855,18 +791,16 @@ Out[73]:
 dtype: float64
 ```
 
-
-
 使用数据框：
 
 ```
 In [74]: df1 = pd.DataFrame(np.random.randn(6, 4),
    ....:                    index=list(range(0, 12, 2)),
    ....:                    columns=list(range(0, 8, 2)))
-   ....: 
+   ....:
 
 In [75]: df1
-Out[75]: 
+Out[75]:
            0         2         4         6
 0   0.149748 -0.732339  0.687738  0.176444
 2   0.403310 -0.154951  0.301624 -2.179861
@@ -876,20 +810,18 @@ Out[75]:
 10 -0.317441 -1.236269  0.896171 -0.487602
 ```
 
-
-
 通过整数切片选择：
 
 ```
 In [76]: df1.iloc[:3]
-Out[76]: 
+Out[76]:
           0         2         4         6
 0  0.149748 -0.732339  0.687738  0.176444
 2  0.403310 -0.154951  0.301624 -2.179861
 4 -1.369849 -0.954208  1.462696 -1.743161
 
 In [77]: df1.iloc[1:5, 2:4]
-Out[77]: 
+Out[77]:
           4         6
 2  0.301624 -2.179861
 4  1.462696 -1.743161
@@ -897,34 +829,28 @@ Out[77]:
 8  0.014871  3.357427
 ```
 
-
-
 通过整数列表选择：
 
 ```
 In [78]: df1.iloc[[1, 3, 5], [1, 3]]
-Out[78]: 
+Out[78]:
            2         6
 2  -0.154951 -2.179861
 6  -0.345352  0.690579
 10 -1.236269 -0.487602
 ```
 
-
-
 ```
 In [79]: df1.iloc[1:3, :]
-Out[79]: 
+Out[79]:
           0         2         4         6
 2  0.403310 -0.154951  0.301624 -2.179861
 4 -1.369849 -0.954208  1.462696 -1.743161
 ```
 
-
-
 ```
 In [80]: df1.iloc[:, 1:3]
-Out[80]: 
+Out[80]:
            2         4
 0  -0.732339  0.687738
 2  -0.154951  0.301624
@@ -934,29 +860,23 @@ Out[80]:
 10 -1.236269  0.896171
 ```
 
-
-
 ```
 # this is also equivalent to ``df1.iat[1,1]``
 In [81]: df1.iloc[1, 1]
 Out[81]: -0.1549507744249032
 ```
 
-
-
 要使用整数位置获取横截面（相当于`df.xs(1)`）：
 
 ```
 In [82]: df1.iloc[1]
-Out[82]: 
+Out[82]:
 0    0.403310
 2   -0.154951
 4    0.301624
 6   -2.179861
 Name: 2, dtype: float64
 ```
-
-
 
 超出范围的切片索引会像在 Python/NumPy 中一样得到妥善处理。
 
@@ -976,7 +896,7 @@ Out[86]: []
 In [87]: s = pd.Series(x)
 
 In [88]: s
-Out[88]: 
+Out[88]:
 0    a
 1    b
 2    c
@@ -986,7 +906,7 @@ Out[88]:
 dtype: object
 
 In [89]: s.iloc[4:10]
-Out[89]: 
+Out[89]:
 4    e
 5    f
 dtype: object
@@ -995,15 +915,13 @@ In [90]: s.iloc[8:10]
 Out[90]: Series([], dtype: object)
 ```
 
-
-
 请注意，使用超出范围的切片可能会导致空轴（例如返回空的 DataFrame）。
 
 ```
 In [91]: dfl = pd.DataFrame(np.random.randn(5, 2), columns=list('AB'))
 
 In [92]: dfl
-Out[92]: 
+Out[92]:
           A         B
 0 -0.082240 -2.182937
 1  0.380396  0.084844
@@ -1012,13 +930,13 @@ Out[92]:
 4  0.274230  0.132885
 
 In [93]: dfl.iloc[:, 2:3]
-Out[93]: 
+Out[93]:
 Empty DataFrame
 Columns: []
 Index: [0, 1, 2, 3, 4]
 
 In [94]: dfl.iloc[:, 1:3]
-Out[94]: 
+Out[94]:
           B
 0 -2.182937
 1  0.084844
@@ -1027,12 +945,10 @@ Out[94]:
 4  0.132885
 
 In [95]: dfl.iloc[4:6]
-Out[95]: 
+Out[95]:
          A         B
 4  0.27423  0.132885
 ```
-
-
 
 超出范围的单个索引器将引发`IndexError`.任何元素超出范围的索引器列表都会引发 `IndexError`.
 
@@ -1109,8 +1025,6 @@ File ~/work/pandas/pandas/pandas/core/indexing.py:1717, in _iLocIndexer._get_lis
 IndexError: positional indexers are out-of-bounds
 ```
 
-
-
 ```
 In [97]: dfl.iloc[:, 4]
 ---------------------------------------------------------------------------
@@ -1159,10 +1073,6 @@ File ~/work/pandas/pandas/pandas/core/indexing.py:1685, in _iLocIndexer._validat
 IndexError: single positional indexer is out-of-bounds
 ```
 
-
-
-
-
 ## 进行选择
 
 `.loc`、`.iloc`、 以及`[]`索引也可以接受 a`callable`作为索引器。必须`callable`是一个带有一个参数（调用 Series 或 DataFrame）的函数，该函数返回有效的索引输出。
@@ -1175,10 +1085,10 @@ IndexError: single positional indexer is out-of-bounds
 In [98]: df1 = pd.DataFrame(np.random.randn(6, 4),
    ....:                    index=list('abcdef'),
    ....:                    columns=list('ABCD'))
-   ....: 
+   ....:
 
 In [99]: df1
-Out[99]: 
+Out[99]:
           A         B         C         D
 a -0.023688  2.410179  1.450520  0.206053
 b -0.251905 -2.213588  1.063327  1.266143
@@ -1188,13 +1098,13 @@ e  1.289997  0.082423 -0.055758  0.536580
 f -0.489682  0.369374 -0.034571 -2.484478
 
 In [100]: df1.loc[lambda df: df['A'] > 0, :]
-Out[100]: 
+Out[100]:
           A         B         C         D
 c  0.299368 -0.863838  0.408204 -1.048089
 e  1.289997  0.082423 -0.055758  0.536580
 
 In [101]: df1.loc[:, lambda df: ['A', 'B']]
-Out[101]: 
+Out[101]:
           A         B
 a -0.023688  2.410179
 b -0.251905 -2.213588
@@ -1204,7 +1114,7 @@ e  1.289997  0.082423
 f -0.489682  0.369374
 
 In [102]: df1.iloc[:, lambda df: [0, 1]]
-Out[102]: 
+Out[102]:
           A         B
 a -0.023688  2.410179
 b -0.251905 -2.213588
@@ -1214,7 +1124,7 @@ e  1.289997  0.082423
 f -0.489682  0.369374
 
 In [103]: df1[lambda df: df.columns[0]]
-Out[103]: 
+Out[103]:
 a   -0.023688
 b   -0.251905
 c    0.299368
@@ -1224,19 +1134,15 @@ f   -0.489682
 Name: A, dtype: float64
 ```
 
-
-
 您可以在`Series`.
 
 ```
 In [104]: df1['A'].loc[lambda s: s > 0]
-Out[104]: 
+Out[104]:
 c    0.299368
 e    1.289997
 Name: A, dtype: float64
 ```
-
-
 
 使用这些方法/索引器，您可以链接数据选择操作，而无需使用临时变量。
 
@@ -1245,10 +1151,10 @@ In [105]: bb = pd.read_csv('data/baseball.csv', index_col='id')
 
 In [106]: (bb.groupby(['year', 'team']).sum(numeric_only=True)
    .....:    .loc[lambda df: df['r'] > 100])
-   .....: 
-Out[106]: 
+   .....:
+Out[106]:
            stint    g    ab    r    h  X2b  ...     so   ibb   hbp    sh    sf  gidp
-year team                                   ...                                     
+year team                                   ...
 2007 CIN       6  379   745  101  203   35  ...  127.0  14.0   1.0   1.0  15.0  18.0
      DET       5  301  1062  162  283   54  ...  176.0   3.0  10.0   4.0   8.0  28.0
      HOU       4  311   926  109  218   47  ...  212.0   3.0   9.0  16.0   6.0  17.0
@@ -1261,10 +1167,6 @@ year team                                   ...
 [8 rows x 18 columns]
 ```
 
-
-
-
-
 ## 结合位置索引和基于标签的索引
 
 如果您希望从“A”列中的索引获取第 0 个和第 2 个元素，您可以执行以下操作：
@@ -1273,47 +1175,41 @@ year team                                   ...
 In [107]: dfd = pd.DataFrame({'A': [1, 2, 3],
    .....:                     'B': [4, 5, 6]},
    .....:                    index=list('abc'))
-   .....: 
+   .....:
 
 In [108]: dfd
-Out[108]: 
+Out[108]:
    A  B
 a  1  4
 b  2  5
 c  3  6
 
 In [109]: dfd.loc[dfd.index[[0, 2]], 'A']
-Out[109]: 
+Out[109]:
 a    1
 c    3
 Name: A, dtype: int64
 ```
-
-
 
 这也可以使用 来表达`.iloc`，通过显式获取索引器上的位置，并使用 *位置*索引来选择事物。
 
 ```
 In [110]: dfd.iloc[[0, 2], dfd.columns.get_loc('A')]
-Out[110]: 
+Out[110]:
 a    1
 c    3
 Name: A, dtype: int64
 ```
 
-
-
 要获取*多个*索引器，请使用`.get_indexer`：
 
 ```
 In [111]: dfd.iloc[[0, 2], dfd.columns.get_indexer(['A', 'B'])]
-Out[111]: 
+Out[111]:
    A  B
 a  1  4
 c  3  6
 ```
-
-
 
 ### 重新索引
 
@@ -1323,14 +1219,12 @@ c  3  6
 In [112]: s = pd.Series([1, 2, 3])
 
 In [113]: s.reindex([1, 2, 3])
-Out[113]: 
+Out[113]:
 1    2.0
 2    3.0
 3    NaN
 dtype: float64
 ```
-
-
 
 或者，如果您只想选择*有效的*键，以下是惯用且高效的；它保证保留选择的数据类型。
 
@@ -1338,13 +1232,11 @@ dtype: float64
 In [114]: labels = [1, 2, 3]
 
 In [115]: s.loc[s.index.intersection(labels)]
-Out[115]: 
+Out[115]:
 1    2
 2    3
 dtype: int64
 ```
-
-
 
 拥有重复的索引将会引发`.reindex()`：
 
@@ -1408,19 +1300,15 @@ File ~/work/pandas/pandas/pandas/core/indexes/base.py:4429, in Index.reindex(sel
 ValueError: cannot reindex on an axis with duplicate labels
 ```
 
-
-
 一般来说，您可以将所需的标签与当前轴相交，然后重新索引。
 
 ```
 In [119]: s.loc[s.index.intersection(labels)].reindex(labels)
-Out[119]: 
+Out[119]:
 c    3.0
 d    NaN
 dtype: float64
 ```
-
-
 
 但是，如果生成的索引重复，这*仍然会引发。*
 
@@ -1482,10 +1370,6 @@ File ~/work/pandas/pandas/pandas/core/indexes/base.py:4429, in Index.reindex(sel
 ValueError: cannot reindex on an axis with duplicate labels
 ```
 
-
-
-
-
 ## 选择随机样本
 
 使用该方法从 Series 或 DataFrame 中随机选择行或列[`sample()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sample.html#pandas.DataFrame.sample)。该方法默认会对行进行采样，并接受要返回的特定数量的行/列或行的一部分。
@@ -1495,13 +1379,13 @@ In [122]: s = pd.Series([0, 1, 2, 3, 4, 5])
 
 # When no arguments are passed, returns 1 row.
 In [123]: s.sample()
-Out[123]: 
+Out[123]:
 4    4
 dtype: int64
 
 # One may specify either a number of rows:
 In [124]: s.sample(n=3)
-Out[124]: 
+Out[124]:
 0    0
 4    4
 1    1
@@ -1509,14 +1393,12 @@ dtype: int64
 
 # Or a fraction of the rows:
 In [125]: s.sample(frac=0.5)
-Out[125]: 
+Out[125]:
 5    5
 3    3
 1    1
 dtype: int64
 ```
-
-
 
 默认情况下，`sample`每行最多返回一次，但也可以使用以下`replace`选项进行替换采样：
 
@@ -1525,7 +1407,7 @@ In [126]: s = pd.Series([0, 1, 2, 3, 4, 5])
 
 # Without replacement (default):
 In [127]: s.sample(n=6, replace=False)
-Out[127]: 
+Out[127]:
 0    0
 1    1
 5    5
@@ -1536,7 +1418,7 @@ dtype: int64
 
 # With replacement:
 In [128]: s.sample(n=6, replace=True)
-Out[128]: 
+Out[128]:
 0    0
 4    4
 3    3
@@ -1546,8 +1428,6 @@ Out[128]:
 dtype: int64
 ```
 
-
-
 默认情况下，每行被选择的概率相等，但如果您希望行具有不同的概率，可以将`sample`函数采样权重传递为 `weights`。这些权重可以是列表、NumPy 数组或系列，但它们的长度必须与要采样的对象的长度相同。缺失值将被视为权重为零，并且不允许使用 inf 值。如果权重总和不等于 1，则将通过将所有权重除以权重总和来重新标准化它们。例如：
 
 ```
@@ -1556,7 +1436,7 @@ In [129]: s = pd.Series([0, 1, 2, 3, 4, 5])
 In [130]: example_weights = [0, 0, 0.2, 0.2, 0.2, 0.4]
 
 In [131]: s.sample(n=3, weights=example_weights)
-Out[131]: 
+Out[131]:
 5    5
 4    4
 3    3
@@ -1566,29 +1446,25 @@ dtype: int64
 In [132]: example_weights2 = [0.5, 0, 0, 0, 0, 0]
 
 In [133]: s.sample(n=1, weights=example_weights2)
-Out[133]: 
+Out[133]:
 0    0
 dtype: int64
 ```
-
-
 
 当应用于 DataFrame 时，您可以通过简单地将列名称作为字符串传递来使用 DataFrame 的列作为采样权重（假设您对行而不是列进行采样）。
 
 ```
 In [134]: df2 = pd.DataFrame({'col1': [9, 8, 7, 6],
    .....:                     'weight_column': [0.5, 0.4, 0.1, 0]})
-   .....: 
+   .....:
 
 In [135]: df2.sample(n=3, weights='weight_column')
-Out[135]: 
+Out[135]:
    col1  weight_column
 1     8            0.4
 0     9            0.5
 2     7            0.1
 ```
-
-
 
 `sample`还允许用户使用参数对列而不是行进行采样`axis`。
 
@@ -1596,14 +1472,12 @@ Out[135]:
 In [136]: df3 = pd.DataFrame({'col1': [1, 2, 3], 'col2': [2, 3, 4]})
 
 In [137]: df3.sample(n=1, axis=1)
-Out[137]: 
+Out[137]:
    col1
 0     1
 1     2
 2     3
 ```
-
-
 
 `sample`最后，还可以使用参数为 的随机数生成器设置种子`random_state`，该参数将接受整数（作为种子）或 NumPy RandomState 对象。
 
@@ -1612,19 +1486,17 @@ In [138]: df4 = pd.DataFrame({'col1': [1, 2, 3], 'col2': [2, 3, 4]})
 
 # With a given seed, the sample will always draw the same rows.
 In [139]: df4.sample(n=2, random_state=2)
-Out[139]: 
+Out[139]:
    col1  col2
 2     3     4
 1     2     3
 
 In [140]: df4.sample(n=2, random_state=2)
-Out[140]: 
+Out[140]:
    col1  col2
 2     3     4
 1     2     3
 ```
-
-
 
 ## 放大设置
 
@@ -1636,7 +1508,7 @@ Out[140]:
 In [141]: se = pd.Series([1, 2, 3])
 
 In [142]: se
-Out[142]: 
+Out[142]:
 0    1
 1    2
 2    3
@@ -1645,7 +1517,7 @@ dtype: int64
 In [143]: se[5] = 5.
 
 In [144]: se
-Out[144]: 
+Out[144]:
 0    1.0
 1    2.0
 2    3.0
@@ -1653,17 +1525,15 @@ Out[144]:
 dtype: float64
 ```
 
-
-
 A`DataFrame`可以通过 沿任一轴放大`.loc`。
 
 ```
 In [145]: dfi = pd.DataFrame(np.arange(6).reshape(3, 2),
    .....:                    columns=['A', 'B'])
-   .....: 
+   .....:
 
 In [146]: dfi
-Out[146]: 
+Out[146]:
    A  B
 0  0  1
 1  2  3
@@ -1672,14 +1542,12 @@ Out[146]:
 In [147]: dfi.loc[:, 'C'] = dfi.loc[:, 'A']
 
 In [148]: dfi
-Out[148]: 
+Out[148]:
    A  B  C
 0  0  1  0
 1  2  3  2
 2  4  5  4
 ```
-
-
 
 这就像`append`对 进行操作`DataFrame`。
 
@@ -1687,17 +1555,13 @@ Out[148]:
 In [149]: dfi.loc[3] = 5
 
 In [150]: dfi
-Out[150]: 
+Out[150]:
    A  B  C
 0  0  1  0
 1  2  3  2
 2  4  5  4
 3  5  5  5
 ```
-
-
-
-
 
 ## 快速标量值获取和设置
 
@@ -1716,8 +1580,6 @@ In [153]: df.iat[3, 0]
 Out[153]: -0.7067711336300845
 ```
 
-
-
 您还可以使用这些相同的索引器进行设置。
 
 ```
@@ -1726,15 +1588,13 @@ In [154]: df.at[dates[5], 'E'] = 7
 In [155]: df.iat[3, 0] = 7
 ```
 
-
-
 `at`如果索引器丢失，可能会按上述方式就地放大对象。
 
 ```
 In [156]: df.at[dates[-1] + pd.Timedelta('1 day'), 0] = 7
 
 In [157]: df
-Out[157]: 
+Out[157]:
                    A         B         C         D    E    0
 2000-01-01 -0.282863  0.469112 -1.509059 -1.135632  NaN  NaN
 2000-01-02 -0.173215  1.212112  0.119209 -1.044236  NaN  NaN
@@ -1747,8 +1607,6 @@ Out[157]:
 2000-01-09       NaN       NaN       NaN       NaN  NaN  7.0
 ```
 
-
-
 ## 布尔索引
 
 另一个常见的操作是使用布尔向量来过滤数据。运算符是：`|`for `or`、`&`for`and`和`~`for `not`。这些**必须**使用括号进行分组，因为默认情况下 Python 将计算诸如as 之类 的表达式，而所需的计算顺序是 。`df['A'] > 2 & df['B'] < 3``df['A'] > (2 & df['B']) < 3``(df['A'] > 2) & (df['B'] < 3)`
@@ -1759,7 +1617,7 @@ Out[157]:
 In [158]: s = pd.Series(range(-3, 4))
 
 In [159]: s
-Out[159]: 
+Out[159]:
 0   -3
 1   -2
 2   -1
@@ -1770,14 +1628,14 @@ Out[159]:
 dtype: int64
 
 In [160]: s[s > 0]
-Out[160]: 
+Out[160]:
 4    1
 5    2
 6    3
 dtype: int64
 
 In [161]: s[(s < -1) | (s > 0.5)]
-Out[161]: 
+Out[161]:
 0   -3
 1   -2
 4    1
@@ -1786,7 +1644,7 @@ Out[161]:
 dtype: int64
 
 In [162]: s[~(s < 0)]
-Out[162]: 
+Out[162]:
 3    0
 4    1
 5    2
@@ -1794,13 +1652,11 @@ Out[162]:
 dtype: int64
 ```
 
-
-
 您可以使用与 DataFrame 索引长度相同的布尔向量从 DataFrame 中选择行（例如，从 DataFrame 的某一列派生的内容）：
 
 ```
 In [163]: df[df['A'] > 0]
-Out[163]: 
+Out[163]:
                    A         B         C         D    E   0
 2000-01-04  7.000000  0.721555 -1.039575  0.271860  NaN NaN
 2000-01-05  0.567020 -0.424972  0.276232 -1.087401  NaN NaN
@@ -1808,21 +1664,19 @@ Out[163]:
 2000-01-07  0.577046  0.404705 -1.715002 -1.039268  NaN NaN
 ```
 
-
-
 列表推导式和`map`Series 方法也可用于生成更复杂的标准：
 
 ```
 In [164]: df2 = pd.DataFrame({'a': ['one', 'one', 'two', 'three', 'two', 'one', 'six'],
    .....:                     'b': ['x', 'y', 'y', 'x', 'y', 'x', 'x'],
    .....:                     'c': np.random.randn(7)})
-   .....: 
+   .....:
 
 # only want 'two' or 'three'
 In [165]: criterion = df2['a'].map(lambda x: x.startswith('t'))
 
 In [166]: df2[criterion]
-Out[166]: 
+Out[166]:
        a  b         c
 2    two  y  0.041290
 3  three  x  0.361719
@@ -1830,7 +1684,7 @@ Out[166]:
 
 # equivalent but slower
 In [167]: df2[[x.startswith('t') for x in df2['a']]]
-Out[167]: 
+Out[167]:
        a  b         c
 2    two  y  0.041290
 3  three  x  0.361719
@@ -1838,23 +1692,19 @@ Out[167]:
 
 # Multiple criteria
 In [168]: df2[criterion & (df2['b'] == 'x')]
-Out[168]: 
+Out[168]:
        a  b         c
 3  three  x  0.361719
 ```
-
-
 
 通过选择方法[Selection by Label](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-label)、[Selection by Position](https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-integer)和[Advanced Indexing ，](https://pandas.pydata.org/docs/user_guide/advanced.html#advanced)您可以使用布尔向量与其他索引表达式相结合沿多个轴进行选择。
 
 ```
 In [169]: df2.loc[criterion & (df2['b'] == 'x'), 'b':'c']
-Out[169]: 
+Out[169]:
    b         c
 3  x  0.361719
 ```
-
-
 
 警告
 
@@ -1863,33 +1713,29 @@ iloc`支持两种布尔索引。如果索引器是 boolean `Series`，则会引�
 In [170]: df = pd.DataFrame([[1, 2], [3, 4], [5, 6]],
    .....:                   index=list('abc'),
    .....:                   columns=['A', 'B'])
-   .....: 
+   .....:
 
 In [171]: s = (df['A'] > 2)
 
 In [172]: s
-Out[172]: 
+Out[172]:
 a    False
 b     True
 c     True
 Name: A, dtype: bool
 
 In [173]: df.loc[s, 'B']
-Out[173]: 
+Out[173]:
 b    4
 c    6
 Name: B, dtype: int64
 
 In [174]: df.iloc[s.values, 1]
-Out[174]: 
+Out[174]:
 b    4
 c    6
 Name: B, dtype: int64
 ```
-
-
-
-
 
 ## 使用 isin 建立索引
 
@@ -1899,7 +1745,7 @@ Name: B, dtype: int64
 In [175]: s = pd.Series(np.arange(5), index=np.arange(5)[::-1], dtype='int64')
 
 In [176]: s
-Out[176]: 
+Out[176]:
 4    0
 3    1
 2    2
@@ -1908,7 +1754,7 @@ Out[176]:
 dtype: int64
 
 In [177]: s.isin([2, 4, 6])
-Out[177]: 
+Out[177]:
 4    False
 3    False
 2     True
@@ -1917,43 +1763,39 @@ Out[177]:
 dtype: bool
 
 In [178]: s[s.isin([2, 4, 6])]
-Out[178]: 
+Out[178]:
 2    2
 0    4
 dtype: int64
 ```
 
-
-
 相同的方法可用于`Index`对象，并且对于您不知道哪些所寻找的标签实际上存在的情况非常有用：
 
 ```
 In [179]: s[s.index.isin([2, 4, 6])]
-Out[179]: 
+Out[179]:
 4    0
 2    2
 dtype: int64
 
 # compare it to the following
 In [180]: s.reindex([2, 4, 6])
-Out[180]: 
+Out[180]:
 2    2.0
 4    0.0
 6    NaN
 dtype: float64
 ```
 
-
-
 除此之外，`MultiIndex`还允许选择在成员资格检查中使用的单独级别：
 
 ```
 In [181]: s_mi = pd.Series(np.arange(6),
    .....:                  index=pd.MultiIndex.from_product([[0, 1], ['a', 'b', 'c']]))
-   .....: 
+   .....:
 
 In [182]: s_mi
-Out[182]: 
+Out[182]:
 0  a    0
    b    1
    c    2
@@ -1963,13 +1805,13 @@ Out[182]:
 dtype: int64
 
 In [183]: s_mi.iloc[s_mi.index.isin([(1, 'a'), (2, 'b'), (0, 'c')])]
-Out[183]: 
+Out[183]:
 0  c    2
 1  a    3
 dtype: int64
 
 In [184]: s_mi.iloc[s_mi.index.isin(['a', 'c', 'e'], level=1)]
-Out[184]: 
+Out[184]:
 0  a    0
    c    2
 1  a    3
@@ -1977,19 +1819,17 @@ Out[184]:
 dtype: int64
 ```
 
-
-
 DataFrame也有一个[`isin()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.isin.html#pandas.DataFrame.isin)方法。调用时`isin`，以数组或字典的形式传递一组值。如果 value 是数组，`isin`则返回与原始 DataFrame 形状相同的布尔值 DataFrame，无论元素位于值序列中的任何位置，都返回 True。
 
 ```
 In [185]: df = pd.DataFrame({'vals': [1, 2, 3, 4], 'ids': ['a', 'b', 'f', 'n'],
    .....:                    'ids2': ['a', 'n', 'c', 'n']})
-   .....: 
+   .....:
 
 In [186]: values = ['a', 'b', 1, 3]
 
 In [187]: df.isin(values)
-Out[187]: 
+Out[187]:
     vals    ids   ids2
 0   True   True   True
 1  False   True  False
@@ -1997,15 +1837,13 @@ Out[187]:
 3  False  False  False
 ```
 
-
-
 通常，您需要将某些值与某些列进行匹配。只需将值设为 a，`dict`其中键是列，值是要检查的项目列表。
 
 ```
 In [188]: values = {'ids': ['a', 'b'], 'vals': [1, 3]}
 
 In [189]: df.isin(values)
-Out[189]: 
+Out[189]:
     vals    ids   ids2
 0   True   True  False
 1  False   True  False
@@ -2013,23 +1851,19 @@ Out[189]:
 3  False  False  False
 ```
 
-
-
 要返回布尔值的 DataFrame（其中值不在*原始*DataFrame 中），请使用`~`运算符：
 
 ```
 In [190]: values = {'ids': ['a', 'b'], 'vals': [1, 3]}
 
 In [191]: ~df.isin(values)
-Out[191]: 
+Out[191]:
     vals    ids  ids2
 0  False  False  True
 1   True  False  True
 2  False   True  True
 3   True   True  True
 ```
-
-
 
 将 DataFrame`isin`与`any()`和`all()`方法结合起来，可以快速选择满足给定条件的数据子集。要选择每列满足其自身标准的行：
 
@@ -2039,14 +1873,10 @@ In [192]: values = {'ids': ['a', 'b'], 'ids2': ['a', 'c'], 'vals': [1, 3]}
 In [193]: row_mask = df.isin(values).all(1)
 
 In [194]: df[row_mask]
-Out[194]: 
+Out[194]:
    vals ids ids2
 0     1   a    a
 ```
-
-
-
-
 
 ## 方法[`where()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.where.html#pandas.DataFrame.where)和掩蔽
 
@@ -2056,7 +1886,7 @@ Out[194]:
 
 ```
 In [195]: s[s > 0]
-Out[195]: 
+Out[195]:
 3    1
 2    2
 1    3
@@ -2064,13 +1894,11 @@ Out[195]:
 dtype: int64
 ```
 
-
-
 要返回与原始形状相同的系列：
 
 ```
 In [196]: s.where(s > 0)
-Out[196]: 
+Out[196]:
 4    NaN
 3    1.0
 2    2.0
@@ -2079,8 +1907,6 @@ Out[196]:
 dtype: float64
 ```
 
-
-
 现在，使用布尔标准从 DataFrame 中选择值也可以保留输入数据的形状。`where`在幕后使用作为实现。下面的代码相当于.`df.where(df < 0)`
 
 ```
@@ -2088,10 +1914,10 @@ In [197]: dates = pd.date_range('1/1/2000', periods=8)
 
 In [198]: df = pd.DataFrame(np.random.randn(8, 4),
    .....:                   index=dates, columns=['A', 'B', 'C', 'D'])
-   .....: 
+   .....:
 
 In [199]: df[df < 0]
-Out[199]: 
+Out[199]:
                    A         B         C         D
 2000-01-01 -2.104139 -1.309525       NaN       NaN
 2000-01-02 -0.352480       NaN -1.192319       NaN
@@ -2103,13 +1929,11 @@ Out[199]:
 2000-01-08       NaN       NaN -0.048788 -0.808838
 ```
 
-
-
 此外，在返回的副本中，`where`采用可选`other`参数来替换条件为 False 的值。
 
 ```
 In [200]: df.where(df < 0, -df)
-Out[200]: 
+Out[200]:
                    A         B         C         D
 2000-01-01 -2.104139 -1.309525 -0.485855 -0.245166
 2000-01-02 -0.352480 -0.390389 -1.192319 -1.655824
@@ -2121,8 +1945,6 @@ Out[200]:
 2000-01-08 -0.801196 -1.392071 -0.048788 -0.808838
 ```
 
-
-
 您可能希望根据某些布尔标准设置值。这可以直观地完成，如下所示：
 
 ```
@@ -2131,7 +1953,7 @@ In [201]: s2 = s.copy()
 In [202]: s2[s2 < 0] = 0
 
 In [203]: s2
-Out[203]: 
+Out[203]:
 4    0
 3    1
 2    2
@@ -2144,7 +1966,7 @@ In [204]: df2 = df.copy()
 In [205]: df2[df2 < 0] = 0
 
 In [206]: df2
-Out[206]: 
+Out[206]:
                    A         B         C         D
 2000-01-01  0.000000  0.000000  0.485855  0.245166
 2000-01-02  0.000000  0.390389  0.000000  1.655824
@@ -2156,8 +1978,6 @@ Out[206]:
 2000-01-08  0.801196  1.392071  0.000000  0.000000
 ```
 
-
-
 `where`返回数据的修改副本。
 
 笔记
@@ -2166,7 +1986,7 @@ Out[206]:
 
 ```
 In [207]: df.where(df < 0, -df) == np.where(df < 0, df, -df)
-Out[207]: 
+Out[207]:
                A     B     C     D
 2000-01-01  True  True  True  True
 2000-01-02  True  True  True  True
@@ -2178,8 +1998,6 @@ Out[207]:
 2000-01-08  True  True  True  True
 ```
 
-
-
 **结盟**
 
 此外，`where`对齐输入布尔条件（ndarray 或 DataFrame），以便可以通过设置进行部分选择。这类似于通过部分设置`.loc`（但在内容而不是轴标签上）。
@@ -2190,7 +2008,7 @@ In [208]: df2 = df.copy()
 In [209]: df2[df2[1:4] > 0] = 3
 
 In [210]: df2
-Out[210]: 
+Out[210]:
                    A         B         C         D
 2000-01-01 -2.104139 -1.309525  0.485855  0.245166
 2000-01-02 -0.352480  3.000000 -1.192319  3.000000
@@ -2202,15 +2020,13 @@ Out[210]:
 2000-01-08  0.801196  1.392071 -0.048788 -0.808838
 ```
 
-
-
 执行 时， Where 还可以接受`axis`和`level`参数来对齐输入`where`。
 
 ```
 In [211]: df2 = df.copy()
 
 In [212]: df2.where(df2 > 0, df2['A'], axis='index')
-Out[212]: 
+Out[212]:
                    A         B         C         D
 2000-01-01 -2.104139 -2.104139  0.485855  0.245166
 2000-01-02 -0.352480  0.390389 -0.352480  1.655824
@@ -2221,8 +2037,6 @@ Out[212]:
 2000-01-07 -2.670153 -2.670153  0.168904 -2.670153
 2000-01-08  0.801196  1.392071  0.801196  0.801196
 ```
-
-
 
 这相当于（但比）以下内容更快。
 
@@ -2230,7 +2044,7 @@ Out[212]:
 In [213]: df2 = df.copy()
 
 In [214]: df.apply(lambda x, y: x.where(x > 0, y), y=df['A'])
-Out[214]: 
+Out[214]:
                    A         B         C         D
 2000-01-01 -2.104139 -2.104139  0.485855  0.245166
 2000-01-02 -0.352480  0.390389 -0.352480  1.655824
@@ -2242,25 +2056,21 @@ Out[214]:
 2000-01-08  0.801196  1.392071  0.801196  0.801196
 ```
 
-
-
 `where`可以接受可调用作为条件和`other`参数。该函数必须带有一个参数（调用 Series 或 DataFrame），并且返回有效的输出作为条件和`other`参数。
 
 ```
 In [215]: df3 = pd.DataFrame({'A': [1, 2, 3],
    .....:                     'B': [4, 5, 6],
    .....:                     'C': [7, 8, 9]})
-   .....: 
+   .....:
 
 In [216]: df3.where(lambda x: x > 4, lambda x: x + 10)
-Out[216]: 
+Out[216]:
     A   B  C
 0  11  14  7
 1  12   5  8
 2  13   6  9
 ```
-
-
 
 ### 面具
 
@@ -2268,7 +2078,7 @@ Out[216]:
 
 ```
 In [217]: s.mask(s >= 0)
-Out[217]: 
+Out[217]:
 4   NaN
 3   NaN
 2   NaN
@@ -2277,7 +2087,7 @@ Out[217]:
 dtype: float64
 
 In [218]: df.mask(df >= 0)
-Out[218]: 
+Out[218]:
                    A         B         C         D
 2000-01-01 -2.104139 -1.309525       NaN       NaN
 2000-01-02 -0.352480       NaN -1.192319       NaN
@@ -2288,10 +2098,6 @@ Out[218]:
 2000-01-07 -2.670153 -0.114722       NaN -0.048048
 2000-01-08       NaN       NaN -0.048788 -0.808838
 ```
-
-
-
-
 
 ## 有条件地设置放大`numpy()`
 
@@ -2305,15 +2111,13 @@ In [219]: df = pd.DataFrame({'col1': list('ABBC'), 'col2': list('ZZXY')})
 In [220]: df['color'] = np.where(df['col2'] == 'Z', 'green', 'red')
 
 In [221]: df
-Out[221]: 
+Out[221]:
   col1 col2  color
 0    A    Z  green
 1    B    Z  green
 2    B    X    red
 3    C    Y    red
 ```
-
-
 
 如果您有多个条件，则可以使用[`numpy.select()`](https://numpy.org/doc/stable/reference/generated/numpy.select.html#numpy.select)它来实现。假设对应于三个条件有三种颜色选择，用第四种颜色作为后备，您可以执行以下操作。
 
@@ -2323,14 +2127,14 @@ In [222]: conditions = [
    .....:     (df['col2'] == 'Z') & (df['col1'] == 'B'),
    .....:     (df['col1'] == 'B')
    .....: ]
-   .....: 
+   .....:
 
 In [223]: choices = ['yellow', 'blue', 'purple']
 
 In [224]: df['color'] = np.select(conditions, choices, default='black')
 
 In [225]: df
-Out[225]: 
+Out[225]:
   col1 col2   color
 0    A    Z  yellow
 1    B    Z    blue
@@ -2338,15 +2142,11 @@ Out[225]:
 3    C    Y   black
 ```
 
-
-
-
-
 ## 方法[`query()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html#pandas.DataFrame.query)
 
 [`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)对象有一个[`query()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html#pandas.DataFrame.query) 允许使用表达式进行选择的方法。
 
-`b`您可以获得列的值介于 columns`a`和之间的框架的值`c`。例如：
+`b`您可以获得列的值介于 columns`a`和��间的框架的值`c`。例如：
 
 ```
 In [226]: n = 10
@@ -2354,7 +2154,7 @@ In [226]: n = 10
 In [227]: df = pd.DataFrame(np.random.rand(n, 3), columns=list('abc'))
 
 In [228]: df
-Out[228]: 
+Out[228]:
           a         b         c
 0  0.438921  0.118680  0.863670
 1  0.138138  0.577363  0.686602
@@ -2369,7 +2169,7 @@ Out[228]:
 
 # pure python
 In [229]: df[(df['a'] < df['b']) & (df['b'] < df['c'])]
-Out[229]: 
+Out[229]:
           a         b         c
 1  0.138138  0.577363  0.686602
 4  0.078718  0.854477  0.898725
@@ -2378,15 +2178,13 @@ Out[229]:
 
 # query
 In [230]: df.query('(a < b) & (b < c)')
-Out[230]: 
+Out[230]:
           a         b         c
 1  0.138138  0.577363  0.686602
 4  0.078718  0.854477  0.898725
 5  0.076404  0.523211  0.591538
 7  0.397890  0.454131  0.915716
 ```
-
-
 
 执行相同的操作，但如果没有具有 name 的列，则使用命名索引`a`。
 
@@ -2396,9 +2194,9 @@ In [231]: df = pd.DataFrame(np.random.randint(n / 2, size=(n, 2)), columns=list(
 In [232]: df.index.name = 'a'
 
 In [233]: df
-Out[233]: 
+Out[233]:
    b  c
-a      
+a
 0  0  4
 1  0  1
 2  3  4
@@ -2411,13 +2209,11 @@ a
 9  1  1
 
 In [234]: df.query('a < b and b < c')
-Out[234]: 
+Out[234]:
    b  c
-a      
+a
 2  3  4
 ```
-
-
 
 如果您不想或无法命名索引，则可以 `index`在查询表达式中使用该名称：
 
@@ -2425,7 +2221,7 @@ a
 In [235]: df = pd.DataFrame(np.random.randint(n, size=(n, 2)), columns=list('bc'))
 
 In [236]: df
-Out[236]: 
+Out[236]:
    b  c
 0  3  1
 1  3  0
@@ -2439,12 +2235,10 @@ Out[236]:
 9  7  9
 
 In [237]: df.query('index < b < c')
-Out[237]: 
+Out[237]:
    b  c
 2  5  6
 ```
-
-
 
 笔记
 
@@ -2456,27 +2250,23 @@ In [238]: df = pd.DataFrame({'a': np.random.randint(5, size=5)})
 In [239]: df.index.name = 'a'
 
 In [240]: df.query('a > 2')  # uses the column 'a', not the index
-Out[240]: 
+Out[240]:
    a
-a   
+a
 1  3
 3  3
 ```
-
-
 
 您仍然可以通过使用特殊标识符“index”在查询表达式中使用索引：
 
 ```
 In [241]: df.query('index > 2')
-Out[241]: 
+Out[241]:
    a
-a   
+a
 3  3
 4  2
 ```
-
-
 
 如果由于某种原因您有一个名为 的列`index`，那么您也可以引用索引`ilevel_0`，但此时您应该考虑将列重命名为不太模糊的名称。
 
@@ -2492,12 +2282,12 @@ In [243]: colors = np.random.choice(['red', 'green'], size=n)
 In [244]: foods = np.random.choice(['eggs', 'ham'], size=n)
 
 In [245]: colors
-Out[245]: 
+Out[245]:
 array(['red', 'red', 'red', 'green', 'green', 'green', 'green', 'green',
        'green', 'green'], dtype='<U5')
 
 In [246]: foods
-Out[246]: 
+Out[246]:
 array(['ham', 'ham', 'eggs', 'eggs', 'eggs', 'ham', 'ham', 'eggs', 'eggs',
        'eggs'], dtype='<U4')
 
@@ -2506,9 +2296,9 @@ In [247]: index = pd.MultiIndex.from_arrays([colors, foods], names=['color', 'fo
 In [248]: df = pd.DataFrame(np.random.randn(n, 2), index=index)
 
 In [249]: df
-Out[249]: 
+Out[249]:
                    0         1
-color food                    
+color food
 red   ham   0.194889 -0.381994
       ham   0.318587  2.089075
       eggs -0.728293 -0.090255
@@ -2521,15 +2311,13 @@ green eggs -0.748199  1.318931
       eggs  0.229453  0.304418
 
 In [250]: df.query('color == "red"')
-Out[250]: 
+Out[250]:
                    0         1
-color food                    
+color food
 red   ham   0.194889 -0.381994
       ham   0.318587  2.089075
       eggs -0.728293 -0.090255
 ```
-
-
 
 如果级别`MultiIndex`未命名，您可以使用特殊名称来引用它们：
 
@@ -2537,7 +2325,7 @@ red   ham   0.194889 -0.381994
 In [251]: df.index.names = [None, None]
 
 In [252]: df
-Out[252]: 
+Out[252]:
                    0         1
 red   ham   0.194889 -0.381994
       ham   0.318587  2.089075
@@ -2551,26 +2339,24 @@ green eggs -0.748199  1.318931
       eggs  0.229453  0.304418
 
 In [253]: df.query('ilevel_0 == "red"')
-Out[253]: 
+Out[253]:
                  0         1
 red ham   0.194889 -0.381994
     ham   0.318587  2.089075
     eggs -0.728293 -0.090255
 ```
 
-
-
 约定为`ilevel_0`，表示 的第 0 级为“索引级 0” `index`。
 
 ### [`query()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html#pandas.DataFrame.query)用例
 
-一个用例是当您拥有一组具有公共列名称（或索引级别/名称）子[`query()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html#pandas.DataFrame.query)集的 对象时。[`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)您可以将相同的查询传递给两个框架，*而无需* 指定您有兴趣查询哪个框架
+一个用例是当您拥有一组具有公共列名称（或索引级别/名称）子[`query()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html#pandas.DataFrame.query)集的 对象时。[`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame)您可以将相同的查询传递给两个框架，_而无需_ 指定您有兴趣查询哪个框架
 
 ```
 In [254]: df = pd.DataFrame(np.random.rand(n, 3), columns=list('abc'))
 
 In [255]: df
-Out[255]: 
+Out[255]:
           a         b         c
 0  0.224283  0.736107  0.139168
 1  0.302827  0.657803  0.713897
@@ -2586,7 +2372,7 @@ Out[255]:
 In [256]: df2 = pd.DataFrame(np.random.rand(n + 2, 3), columns=df.columns)
 
 In [257]: df2
-Out[257]: 
+Out[257]:
            a         b         c
 0   0.357579  0.229800  0.596001
 1   0.309059  0.957923  0.965663
@@ -2607,8 +2393,6 @@ In [259]: map(lambda frame: frame.query(expr), [df, df2])
 Out[259]: <map at 0x7fac68ab7580>
 ```
 
-
-
 ### [`query()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html#pandas.DataFrame.query)Python 与 pandas 语法比较
 
 完整的类似 numpy 的语法：
@@ -2617,7 +2401,7 @@ Out[259]: <map at 0x7fac68ab7580>
 In [260]: df = pd.DataFrame(np.random.randint(n, size=(n, 3)), columns=list('abc'))
 
 In [261]: df
-Out[261]: 
+Out[261]:
    a  b  c
 0  7  8  9
 1  1  0  7
@@ -2631,50 +2415,42 @@ Out[261]:
 9  1  5  0
 
 In [262]: df.query('(a < b) & (b < c)')
-Out[262]: 
+Out[262]:
    a  b  c
 0  7  8  9
 
 In [263]: df[(df['a'] < df['b']) & (df['b'] < df['c'])]
-Out[263]: 
+Out[263]:
    a  b  c
 0  7  8  9
 ```
-
-
 
 去掉括号会好一点（比较运算符比`&`and绑定得更紧`|`）：
 
 ```
 In [264]: df.query('a < b & b < c')
-Out[264]: 
+Out[264]:
    a  b  c
 0  7  8  9
 ```
-
-
 
 使用英文代替符号：
 
 ```
 In [265]: df.query('a < b and b < c')
-Out[265]: 
+Out[265]:
    a  b  c
 0  7  8  9
 ```
-
-
 
 非常接近你在纸上写的方式：
 
 ```
 In [266]: df.query('a < b < c')
-Out[266]: 
+Out[266]:
    a  b  c
 0  7  8  9
 ```
-
-
 
 ### 和运算`in`符`not in`
 
@@ -2685,10 +2461,10 @@ Out[266]:
 In [267]: df = pd.DataFrame({'a': list('aabbccddeeff'), 'b': list('aaaabbbbcccc'),
    .....:                    'c': np.random.randint(5, size=12),
    .....:                    'd': np.random.randint(9, size=12)})
-   .....: 
+   .....:
 
 In [268]: df
-Out[268]: 
+Out[268]:
     a  b  c  d
 0   a  a  2  6
 1   a  a  4  7
@@ -2704,7 +2480,7 @@ Out[268]:
 11  f  c  1  2
 
 In [269]: df.query('a in b')
-Out[269]: 
+Out[269]:
    a  b  c  d
 0  a  a  2  6
 1  a  a  4  7
@@ -2715,7 +2491,7 @@ Out[269]:
 
 # How you'd do it in pure Python
 In [270]: df[df['a'].isin(df['b'])]
-Out[270]: 
+Out[270]:
    a  b  c  d
 0  a  a  2  6
 1  a  a  4  7
@@ -2725,7 +2501,7 @@ Out[270]:
 5  c  b  0  2
 
 In [271]: df.query('a not in b')
-Out[271]: 
+Out[271]:
     a  b  c  d
 6   d  b  3  3
 7   d  b  2  1
@@ -2736,7 +2512,7 @@ Out[271]:
 
 # pure Python
 In [272]: df[~df['a'].isin(df['b'])]
-Out[272]: 
+Out[272]:
     a  b  c  d
 6   d  b  3  3
 7   d  b  2  1
@@ -2746,15 +2522,13 @@ Out[272]:
 11  f  c  1  2
 ```
 
-
-
 您可以将其与其他表达式结合起来进行非常简洁的查询：
 
 ```
 # rows where cols a and b have overlapping values
 # and col c's values are less than col d's
 In [273]: df.query('a in b and c < d')
-Out[273]: 
+Out[273]:
    a  b  c  d
 0  a  a  2  6
 1  a  a  4  7
@@ -2764,7 +2538,7 @@ Out[273]:
 
 # pure Python
 In [274]: df[df['b'].isin(df['a']) & (df['c'] < df['d'])]
-Out[274]: 
+Out[274]:
     a  b  c  d
 0   a  a  2  6
 1   a  a  4  7
@@ -2775,8 +2549,6 @@ Out[274]:
 11  f  c  1  2
 ```
 
-
-
 笔记
 
 请注意，`in`和在 Python 中进行计算，因为 没有与此操作等效的操作。但是，在普通 Python 中，**仅**计算/**表达式本身**。例如，在表达式中`not in``numexpr` `in``not in`
@@ -2784,8 +2556,6 @@ Out[274]:
 ```
 df.query('a in b + c + d')
 ```
-
-
 
 `(b + c + d)`由 求值，`numexpr`然后*用*`in` 普通 Python 求值。一般来说，任何可以使用`numexpr`will 进行评估的操作都是如此。
 
@@ -2795,7 +2565,7 @@ df.query('a in b + c + d')
 
 ```
 In [275]: df.query('b == ["a", "b", "c"]')
-Out[275]: 
+Out[275]:
     a  b  c  d
 0   a  a  2  6
 1   a  a  4  7
@@ -2812,7 +2582,7 @@ Out[275]:
 
 # pure Python
 In [276]: df[df['b'].isin(["a", "b", "c"])]
-Out[276]: 
+Out[276]:
     a  b  c  d
 0   a  a  2  6
 1   a  a  4  7
@@ -2828,7 +2598,7 @@ Out[276]:
 11  f  c  1  2
 
 In [277]: df.query('c == [1, 2]')
-Out[277]: 
+Out[277]:
     a  b  c  d
 0   a  a  2  6
 2   b  a  1  6
@@ -2838,7 +2608,7 @@ Out[277]:
 11  f  c  1  2
 
 In [278]: df.query('c != [1, 2]')
-Out[278]: 
+Out[278]:
     a  b  c  d
 1   a  a  4  7
 4   c  b  3  6
@@ -2849,7 +2619,7 @@ Out[278]:
 
 # using in/not in
 In [279]: df.query('[1, 2] in c')
-Out[279]: 
+Out[279]:
     a  b  c  d
 0   a  a  2  6
 2   b  a  1  6
@@ -2859,7 +2629,7 @@ Out[279]:
 11  f  c  1  2
 
 In [280]: df.query('[1, 2] not in c')
-Out[280]: 
+Out[280]:
     a  b  c  d
 1   a  a  4  7
 4   c  b  3  6
@@ -2870,7 +2640,7 @@ Out[280]:
 
 # pure Python
 In [281]: df[df['c'].isin([1, 2])]
-Out[281]: 
+Out[281]:
     a  b  c  d
 0   a  a  2  6
 2   b  a  1  6
@@ -2879,8 +2649,6 @@ Out[281]:
 9   e  c  2  0
 11  f  c  1  2
 ```
-
-
 
 ### 布尔运算符
 
@@ -2892,28 +2660,26 @@ In [282]: df = pd.DataFrame(np.random.rand(n, 3), columns=list('abc'))
 In [283]: df['bools'] = np.random.rand(len(df)) > 0.5
 
 In [284]: df.query('~bools')
-Out[284]: 
+Out[284]:
           a         b         c  bools
 2  0.697753  0.212799  0.329209  False
 7  0.275396  0.691034  0.826619  False
 8  0.190649  0.558748  0.262467  False
 
 In [285]: df.query('not bools')
-Out[285]: 
+Out[285]:
           a         b         c  bools
 2  0.697753  0.212799  0.329209  False
 7  0.275396  0.691034  0.826619  False
 8  0.190649  0.558748  0.262467  False
 
 In [286]: df.query('not bools') == df[~df['bools']]
-Out[286]: 
+Out[286]:
       a     b     c  bools
 2  True  True  True   True
 7  True  True  True   True
 8  True  True  True   True
 ```
-
-
 
 当然，表达式也可以任意复杂：
 
@@ -2926,25 +2692,23 @@ In [288]: longer = df[(df['a'] < df['b'])
    .....:             & (df['b'] < df['c'])
    .....:             & (~df['bools'])
    .....:             | (df['bools'] > 2)]
-   .....: 
+   .....:
 
 In [289]: shorter
-Out[289]: 
+Out[289]:
           a         b         c  bools
 7  0.275396  0.691034  0.826619  False
 
 In [290]: longer
-Out[290]: 
+Out[290]:
           a         b         c  bools
 7  0.275396  0.691034  0.826619  False
 
 In [291]: shorter == longer
-Out[291]: 
+Out[291]:
       a     b     c  bools
 7  True  True  True   True
 ```
-
-
 
 ### 的表演[`query()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html#pandas.DataFrame.query)
 
@@ -2959,12 +2723,10 @@ Out[291]:
 ```
 In [292]: df = pd.DataFrame(np.random.randn(8, 4),
    .....:                   index=dates, columns=['A', 'B', 'C', 'D'])
-   .....: 
+   .....:
 
 In [293]: df2 = df.copy()
 ```
-
-
 
 ## 重复数据
 
@@ -2983,10 +2745,10 @@ In [293]: df2 = df.copy()
 In [294]: df2 = pd.DataFrame({'a': ['one', 'one', 'two', 'two', 'two', 'three', 'four'],
    .....:                     'b': ['x', 'y', 'x', 'y', 'x', 'x', 'x'],
    .....:                     'c': np.random.randn(7)})
-   .....: 
+   .....:
 
 In [295]: df2
-Out[295]: 
+Out[295]:
        a  b         c
 0    one  x -1.067137
 1    one  y  0.309500
@@ -2997,7 +2759,7 @@ Out[295]:
 6   four  x  1.298329
 
 In [296]: df2.duplicated('a')
-Out[296]: 
+Out[296]:
 0    False
 1     True
 2    False
@@ -3008,7 +2770,7 @@ Out[296]:
 dtype: bool
 
 In [297]: df2.duplicated('a', keep='last')
-Out[297]: 
+Out[297]:
 0     True
 1    False
 2     True
@@ -3019,7 +2781,7 @@ Out[297]:
 dtype: bool
 
 In [298]: df2.duplicated('a', keep=False)
-Out[298]: 
+Out[298]:
 0     True
 1     True
 2     True
@@ -3030,7 +2792,7 @@ Out[298]:
 dtype: bool
 
 In [299]: df2.drop_duplicates('a')
-Out[299]: 
+Out[299]:
        a  b         c
 0    one  x -1.067137
 2    two  x -0.211056
@@ -3038,7 +2800,7 @@ Out[299]:
 6   four  x  1.298329
 
 In [300]: df2.drop_duplicates('a', keep='last')
-Out[300]: 
+Out[300]:
        a  b         c
 1    one  y  0.309500
 4    two  x -0.390820
@@ -3046,19 +2808,17 @@ Out[300]:
 6   four  x  1.298329
 
 In [301]: df2.drop_duplicates('a', keep=False)
-Out[301]: 
+Out[301]:
        a  b         c
 5  three  x -1.964475
 6   four  x  1.298329
 ```
 
-
-
 此外，您还可以传递列列表来识别重复项。
 
 ```
 In [302]: df2.duplicated(['a', 'b'])
-Out[302]: 
+Out[302]:
 0    False
 1    False
 2    False
@@ -3069,7 +2829,7 @@ Out[302]:
 dtype: bool
 
 In [303]: df2.drop_duplicates(['a', 'b'])
-Out[303]: 
+Out[303]:
        a  b         c
 0    one  x -1.067137
 1    one  y  0.309500
@@ -3079,18 +2839,16 @@ Out[303]:
 6   four  x  1.298329
 ```
 
-
-
 要按索引值删除重复项，请使用`Index.duplicated`then 执行切片。同一组选项可用于该`keep`参数。
 
 ```
 In [304]: df3 = pd.DataFrame({'a': np.arange(6),
    .....:                     'b': np.random.randn(6)},
    .....:                    index=['a', 'a', 'b', 'c', 'b', 'a'])
-   .....: 
+   .....:
 
 In [305]: df3
-Out[305]: 
+Out[305]:
    a         b
 a  0  1.440455
 a  1  2.456086
@@ -3103,28 +2861,24 @@ In [306]: df3.index.duplicated()
 Out[306]: array([False,  True, False, False,  True,  True])
 
 In [307]: df3[~df3.index.duplicated()]
-Out[307]: 
+Out[307]:
    a         b
 a  0  1.440455
 b  2  1.038402
 c  3 -0.894409
 
 In [308]: df3[~df3.index.duplicated(keep='last')]
-Out[308]: 
+Out[308]:
    a         b
 c  3 -0.894409
 b  4  0.683536
 a  5  3.082764
 
 In [309]: df3[~df3.index.duplicated(keep=False)]
-Out[309]: 
+Out[309]:
    a         b
 c  3 -0.894409
 ```
-
-
-
-
 
 ## 类似字典的[`get()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.get.html#pandas.DataFrame.get)方法
 
@@ -3140,10 +2894,6 @@ In [312]: s.get('x', default=-1)
 Out[312]: -1
 ```
 
-
-
-
-
 ## 通过索引/列标签查找值
 
 有时，您想要在给定行标签和列标签序列的情况下提取一组值，这可以通过`pandas.factorize`NumPy 索引来实现。例如：
@@ -3152,10 +2902,10 @@ Out[312]: -1
 In [313]: df = pd.DataFrame({'col': ["A", "A", "B", "B"],
    .....:                    'A': [80, 23, np.nan, 22],
    .....:                    'B': [80, 55, 76, 67]})
-   .....: 
+   .....:
 
 In [314]: df
-Out[314]: 
+Out[314]:
   col     A   B
 0   A  80.0  80
 1   A  23.0  55
@@ -3168,11 +2918,7 @@ In [316]: df.reindex(cols, axis=1).to_numpy()[np.arange(len(df)), idx]
 Out[316]: array([80., 23., 76., 67.])
 ```
 
-
-
 以前，这可以通过专用方法来实现`DataFrame.lookup`，该方法在版本 1.2.0 中已弃用并在版本 2.0.0 中删除。
-
-
 
 ## 索引对象
 
@@ -3190,8 +2936,6 @@ In [319]: 'd' in index
 Out[319]: True
 ```
 
-
-
 或使用数字：
 
 ```
@@ -3203,8 +2947,6 @@ Out[321]: Index([1, 5, 12], dtype='int64')
 In [322]: 5 in index
 Out[322]: True
 ```
-
-
 
 如果未给出 dtype，`Index`则尝试从数据推断 dtype。实例化时也可以给出显式的数据类型[`Index`](https://pandas.pydata.org/docs/reference/api/pandas.Index.html#pandas.Index)：
 
@@ -3225,8 +2967,6 @@ In [328]: index
 Out[328]: Index([1.0, 5.0, 12.0], dtype='float32')
 ```
 
-
-
 您还可以传递 a`name`来存储在索引中：
 
 ```
@@ -3235,8 +2975,6 @@ In [329]: index = pd.Index(['e', 'd', 'a', 'b'], name='something')
 In [330]: index.name
 Out[330]: 'something'
 ```
-
-
 
 该名称（如果设置）将显示在控制台显示屏中：
 
@@ -3248,9 +2986,9 @@ In [332]: columns = pd.Index(['A', 'B', 'C'], name='cols')
 In [333]: df = pd.DataFrame(np.random.randn(5, 3), index=index, columns=columns)
 
 In [334]: df
-Out[334]: 
+Out[334]:
 cols         A         B         C
-rows                              
+rows
 0     1.295989 -1.051694  1.340429
 1    -2.366110  0.428241  0.387275
 2     0.433306  0.929548  0.278094
@@ -3258,7 +2996,7 @@ rows
 4     1.126818  1.132290 -0.353310
 
 In [335]: df['A']
-Out[335]: 
+Out[335]:
 rows
 0    1.295989
 1   -2.366110
@@ -3267,10 +3005,6 @@ rows
 4    1.126818
 Name: A, dtype: float64
 ```
-
-
-
-
 
 ### 设置元数据
 
@@ -3295,15 +3029,13 @@ In [341]: ind
 Out[341]: Index([1, 2, 3], dtype='int64', name='bob')
 ```
 
-
-
 `set_names`, `set_levels`, 并且`set_codes`还采用可选 `level`参数
 
 ```
 In [342]: index = pd.MultiIndex.from_product([range(3), ['one', 'two']], names=['first', 'second'])
 
 In [343]: index
-Out[343]: 
+Out[343]:
 MultiIndex([(0, 'one'),
             (0, 'two'),
             (1, 'one'),
@@ -3316,7 +3048,7 @@ In [344]: index.levels[1]
 Out[344]: Index(['one', 'two'], dtype='object', name='second')
 
 In [345]: index.set_levels(["a", "b"], level=1)
-Out[345]: 
+Out[345]:
 MultiIndex([(0, 'a'),
             (0, 'b'),
             (1, 'a'),
@@ -3325,10 +3057,6 @@ MultiIndex([(0, 'a'),
             (2, 'b')],
            names=['first', 'second'])
 ```
-
-
-
-
 
 ### 对 Index 对象进行设置操作
 
@@ -3343,8 +3071,6 @@ In [348]: a.difference(b)
 Out[348]: Index(['a', 'b'], dtype='object')
 ```
 
-
-
 还可以使用该`symmetric_difference`操作，该操作返回出现在 或 中的元素`idx1`，`idx2`但不会返回出现在两者中的元素。这相当于由`idx1.difference(idx2).union(idx2.difference(idx1))`删除重复项创建的索引。
 
 ```
@@ -3355,8 +3081,6 @@ In [350]: idx2 = pd.Index([2, 3, 4, 5])
 In [351]: idx1.symmetric_difference(idx2)
 Out[351]: Index([1, 5], dtype='int64')
 ```
-
-
 
 笔记
 
@@ -3372,10 +3096,6 @@ In [353]: idx2 = pd.Index([0.5, 1.5])
 In [354]: idx1.union(idx2)
 Out[354]: Index([0.0, 0.5, 1.0, 1.5, 2.0], dtype='float64')
 ```
-
-
-
-
 
 ### 缺失值
 
@@ -3397,7 +3117,7 @@ Out[357]: Index([1.0, 2.0, 3.0, 4.0], dtype='float64')
 In [358]: idx2 = pd.DatetimeIndex([pd.Timestamp('2011-01-01'),
    .....:                          pd.NaT,
    .....:                          pd.Timestamp('2011-01-03')])
-   .....: 
+   .....:
 
 In [359]: idx2
 Out[359]: DatetimeIndex(['2011-01-01', 'NaT', '2011-01-03'], dtype='datetime64[ns]', freq=None)
@@ -3406,13 +3126,9 @@ In [360]: idx2.fillna(pd.Timestamp('2011-01-02'))
 Out[360]: DatetimeIndex(['2011-01-01', '2011-01-02', '2011-01-03'], dtype='datetime64[ns]', freq=None)
 ```
 
-
-
 ## 设置/重置索引
 
 有时，您会将数据集加载或创建到 DataFrame 中，并希望在完成此操作后添加索引。有几种不同的方法。
-
-
 
 ### 设置索引
 
@@ -3423,10 +3139,10 @@ In [361]: data = pd.DataFrame({'a': ['bar', 'bar', 'foo', 'foo'],
    .....:                      'b': ['one', 'two', 'one', 'two'],
    .....:                      'c': ['z', 'y', 'x', 'w'],
    .....:                      'd': [1., 2., 3, 4]})
-   .....: 
+   .....:
 
 In [362]: data
-Out[362]: 
+Out[362]:
      a    b  c    d
 0  bar  one  z  1.0
 1  bar  two  y  2.0
@@ -3436,9 +3152,9 @@ Out[362]:
 In [363]: indexed1 = data.set_index('c')
 
 In [364]: indexed1
-Out[364]: 
+Out[364]:
      a    b    d
-c               
+c
 z  bar  one  1.0
 y  bar  two  2.0
 x  foo  one  3.0
@@ -3447,16 +3163,14 @@ w  foo  two  4.0
 In [365]: indexed2 = data.set_index(['a', 'b'])
 
 In [366]: indexed2
-Out[366]: 
+Out[366]:
          c    d
-a   b          
+a   b
 bar one  z  1.0
     two  y  2.0
 foo one  x  3.0
     two  w  4.0
 ```
-
-
 
 关键字`append`选项允许您保留现有索引并将给定列附加到 MultiIndex：
 
@@ -3466,31 +3180,27 @@ In [367]: frame = data.set_index('c', drop=False)
 In [368]: frame = frame.set_index(['a', 'b'], append=True)
 
 In [369]: frame
-Out[369]: 
+Out[369]:
            c    d
-c a   b          
+c a   b
 z bar one  z  1.0
 y bar two  y  2.0
 x foo one  x  3.0
 w foo two  w  4.0
 ```
 
-
-
 其他选项`set_index`允许您不删除索引列。
 
 ```
 In [370]: data.set_index('c', drop=False)
-Out[370]: 
+Out[370]:
      a    b  c    d
-c                  
+c
 z  bar  one  z  1.0
 y  bar  two  y  2.0
 x  foo  one  x  3.0
 w  foo  two  w  4.0
 ```
-
-
 
 ### 重置索引
 
@@ -3498,7 +3208,7 @@ w  foo  two  w  4.0
 
 ```
 In [371]: data
-Out[371]: 
+Out[371]:
      a    b  c    d
 0  bar  one  z  1.0
 1  bar  two  y  2.0
@@ -3506,7 +3216,7 @@ Out[371]:
 3  foo  two  w  4.0
 
 In [372]: data.reset_index()
-Out[372]: 
+Out[372]:
    index    a    b  c    d
 0      0  bar  one  z  1.0
 1      1  bar  two  y  2.0
@@ -3514,33 +3224,29 @@ Out[372]:
 3      3  foo  two  w  4.0
 ```
 
-
-
 输出更类似于 SQL 表或记录数组。从索引派生的列的名称是存储在`names`属性中的名称。
 
 您可以使用`level`关键字仅删除索引的一部分：
 
 ```
 In [373]: frame
-Out[373]: 
+Out[373]:
            c    d
-c a   b          
+c a   b
 z bar one  z  1.0
 y bar two  y  2.0
 x foo one  x  3.0
 w foo two  w  4.0
 
 In [374]: frame.reset_index(level=1)
-Out[374]: 
+Out[374]:
          a  c    d
-c b               
+c b
 z one  bar  z  1.0
 y two  bar  y  2.0
 x one  foo  x  3.0
 w two  foo  w  4.0
 ```
-
-
 
 `reset_index`采用一个可选参数`drop`，如果为 true，则简单地丢弃索引，而不是将索引值放入 DataFrame 的列中。
 
@@ -3554,18 +3260,14 @@ In [375]: df_idx = pd.DataFrame(range(4))
 In [376]: df_idx.index = pd.Index([10, 20, 30, 40], name="a")
 
 In [377]: df_idx
-Out[377]: 
+Out[377]:
     0
-a    
+a
 10  0
 20  1
 30  2
 40  3
 ```
-
-
-
-
 
 ## 返回视图与副本
 
@@ -3574,7 +3276,7 @@ a
 [Copy-on-Write](https://pandas.pydata.org/docs/user_guide/copy_on_write.html#copy-on-write) 将成为 pandas 3.0 中新的默认设置。这意味着链式索引永远不会起作用。结果，`SettingWithCopyWarning`不再需要了。请参阅[本节](https://pandas.pydata.org/docs/user_guide/copy_on_write.html#copy-on-write-chained-assignment) 了解更多背景信息。我们建议打开 Copy-on-Write 以利用以下方面的改进
 
 ```
- pd.options.mode.copy_on_write = True 
+ pd.options.mode.copy_on_write = True
 ```
 
 甚至在 pandas 3.0 可用之前。
@@ -3588,11 +3290,11 @@ In [378]: dfmi = pd.DataFrame([list('abcd'),
    .....:                      list('mnop')],
    .....:                     columns=pd.MultiIndex.from_product([['one', 'two'],
    .....:                                                         ['first', 'second']]))
-   .....: 
+   .....:
 
 In [379]: dfmi
-Out[379]: 
-    one          two       
+Out[379]:
+    one          two
   first second first second
 0     a      b     c      d
 1     e      f     g      h
@@ -3600,13 +3302,11 @@ Out[379]:
 3     m      n     o      p
 ```
 
-
-
 比较这两种访问方式：
 
 ```
 In [380]: dfmi['one']['second']
-Out[380]: 
+Out[380]:
 0    b
 1    f
 2    j
@@ -3614,19 +3314,15 @@ Out[380]:
 Name: second, dtype: object
 ```
 
-
-
 ```
 In [381]: dfmi.loc[:, ('one', 'second')]
-Out[381]: 
+Out[381]:
 0    b
 1    f
 2    j
 3    n
 Name: (one, second), dtype: object
 ```
-
-
 
 这两者都会产生相同的结果，那么您应该使用哪一个呢？了解这些操作的顺序以及为什么方法 2 ( ) 比方法 1（链式）`.loc`更受欢迎是有启发性的。`[]`
 
@@ -3641,7 +3337,7 @@ Name: (one, second), dtype: object
 [Copy-on-Write](https://pandas.pydata.org/docs/user_guide/copy_on_write.html#copy-on-write) 将成为 pandas 3.0 中新的默认设置。这意味着链式索引永远不会起作用。结果，`SettingWithCopyWarning`不再需要了。请参阅[本节](https://pandas.pydata.org/docs/user_guide/copy_on_write.html#copy-on-write-chained-assignment) 了解更多背景信息。我们建议打开 Copy-on-Write 以利用以下方面的改进
 
 ```
- pd.options.mode.copy_on_write = True 
+ pd.options.mode.copy_on_write = True
 ```
 
 甚至在 pandas 3.0 可用之前。
@@ -3656,8 +3352,6 @@ dfmi.loc[:, ('one', 'second')] = value
 dfmi.loc.__setitem__((slice(None), ('one', 'second')), value)
 ```
 
-
-
 但这段代码的处理方式有所不同：
 
 ```
@@ -3665,8 +3359,6 @@ dfmi['one']['second'] = value
 # becomes
 dfmi.__getitem__('one').__setitem__('second', value)
 ```
-
-
 
 看到`__getitem__`那里了吗？除了简单的情况之外，很难预测它是否会返回视图或副本（这取决于数组的内存布局，pandas 对此不做保证），因此很难预测它是否`__setitem__`会修改`dfmi`或获取的临时对象之后立即被扔出去。**这就是**警告`SettingWithCopy`你的！
 
@@ -3685,11 +3377,7 @@ def do_something(df):
     return foo
 ```
 
-
-
 哎呀！
-
-
 
 ### 评估顺序很重要
 
@@ -3698,7 +3386,7 @@ def do_something(df):
 [Copy-on-Write](https://pandas.pydata.org/docs/user_guide/copy_on_write.html#copy-on-write) 将成为 pandas 3.0 中新的默认设置。这意味着链式索引永远不会起作用。结果，`SettingWithCopyWarning`不再需要了。请参阅[本节](https://pandas.pydata.org/docs/user_guide/copy_on_write.html#copy-on-write-chained-assignment) 了解更多背景信息。我们建议打开 Copy-on-Write 以利用以下方面的改进
 
 ```
- pd.options.mode.copy_on_write = True 
+ pd.options.mode.copy_on_write = True
 ```
 
 甚至在 pandas 3.0 可用之前。
@@ -3717,24 +3405,20 @@ pandas 之所以存在这种情况，是`SettingWithCopyWarning`因为分配给�
 In [382]: dfb = pd.DataFrame({'a': ['one', 'one', 'two',
    .....:                           'three', 'two', 'one', 'six'],
    .....:                     'c': np.arange(7)})
-   .....: 
+   .....:
 
 # This will show the SettingWithCopyWarning
 # but the frame values will be set
 In [383]: dfb['c'][dfb['a'].str.startswith('o')] = 42
 ```
 
-
-
 然而，这在副本上运行并且不起作用。
 
 ```
 In [384]: with pd.option_context('mode.chained_assignment','warn'):
    .....:     dfb[dfb['a'].str.startswith('o')]['c'] = 42
-   .....: 
+   .....:
 ```
-
-
 
 链式分配也可能出现在混合数据类型框架的设置中。
 
@@ -3748,7 +3432,7 @@ In [384]: with pd.option_context('mode.chained_assignment','warn'):
 In [385]: dfc = pd.DataFrame({'a': ['one', 'one', 'two',
    .....:                           'three', 'two', 'one', 'six'],
    .....:                     'c': np.arange(7)})
-   .....: 
+   .....:
 
 In [386]: dfd = dfc.copy()
 
@@ -3758,7 +3442,7 @@ In [387]: mask = dfd['a'].str.startswith('o')
 In [388]: dfd.loc[mask, 'c'] = 42
 
 In [389]: dfd
-Out[389]: 
+Out[389]:
        a   c
 0    one  42
 1    one  42
@@ -3774,7 +3458,7 @@ In [390]: dfd = dfc.copy()
 In [391]: dfd.loc[2, 'a'] = 11
 
 In [392]: dfd
-Out[392]: 
+Out[392]:
        a  c
 0    one  0
 1    one  1
@@ -3785,8 +3469,6 @@ Out[392]:
 6    six  6
 ```
 
-
-
 以下内容有时*可能*有效，但不能保证有效，因此应避免：
 
 ```
@@ -3795,7 +3477,7 @@ In [393]: dfd = dfc.copy()
 In [394]: dfd['a'][2] = 111
 
 In [395]: dfd
-Out[395]: 
+Out[395]:
        a  c
 0    one  0
 1    one  1
@@ -3806,14 +3488,12 @@ Out[395]:
 6    six  6
 ```
 
-
-
 最后，后面的例子根本**不起作用**，所以应该避免：
 
 ```
 In [396]: with pd.option_context('mode.chained_assignment','raise'):
    .....:     dfd.loc[0]['a'] = 1111
-   .....: 
+   .....:
 ---------------------------------------------------------------------------
 SettingWithCopyError                      Traceback (most recent call last)
 <ipython-input-396-32ce785aaa5b> in ?()
@@ -3822,11 +3502,11 @@ SettingWithCopyError                      Traceback (most recent call last)
 
 ~/work/pandas/pandas/pandas/core/series.py in ?(self, key, value)
    1275                 )
-   1276 
+   1276
    1277         check_dict_or_set_indexers(key)
    1278         key = com.apply_if_callable(key, self)
 -> 1279         cacher_needs_updating = self._check_is_chained_assignment_possible()
-   1280 
+   1280
    1281         if key is Ellipsis:
    1282             key = slice(None)
 
@@ -3848,19 +3528,17 @@ SettingWithCopyError                      Traceback (most recent call last)
 ~/work/pandas/pandas/pandas/core/generic.py in ?(self, t, force)
    4466                 "indexing.html#returning-a-view-versus-a-copy"
    4467             )
-   4468 
+   4468
    4469         if value == "raise":
 -> 4470             raise SettingWithCopyError(t)
    4471         if value == "warn":
    4472             warnings.warn(t, SettingWithCopyWarning, stacklevel=find_stack_level())
 
-SettingWithCopyError: 
+SettingWithCopyError:
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
 ```
-
-
 
 警告
 

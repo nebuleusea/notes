@@ -9,23 +9,14 @@ usage: conda env [-h] command ...
    - command
 
      可能的选择：配置、创建、导出、列表、删除、更新
-	
-
-
 
 ## `conda env config`
 
-
-
 配置conda环境。
-
-
 
 ```
 usage: conda env config [-h] {vars} ...
 ```
-
-
 
 例子：
 
@@ -36,17 +27,11 @@ conda env config --append channels conda-forge
 
 ### `conda env config vars`
 
-
-
 与与 Conda 环境关联的环境变量进行交互。
-
-
 
 ```
 usage: conda env config vars [-h] {list,set,unset} ...
 ```
-
-
 
 例子：
 
@@ -58,11 +43,7 @@ conda env config vars unset MY_VAR
 
 #### `conda env config vars list`
 
-
-
 列出 conda 环境的环境变量。
-
-
 
 ```
 usage: conda env config vars list [-h] [-n ENVIRONMENT | -p PATH] [--json]
@@ -93,20 +74,15 @@ usage: conda env config vars list [-h] [-n ENVIRONMENT | -p PATH] [--json]
 
      不显示进度条。
 
-
-
 例子：
+
 ```
 conda env config vars list -n my_env
 ```
 
 #### `conda env config vars set`
 
-
-
 为 conda 环境设置环境变量。
-
-
 
 ```
 usage: conda env config vars set [-h] [-n ENVIRONMENT | -p PATH] [vars ...]
@@ -128,8 +104,6 @@ usage: conda env config vars set [-h] [-n ENVIRONMENT | -p PATH] [vars ...]
 
      环境位置的完整路径（即前缀）。
 
-
-
 例子：
 
 ```
@@ -138,11 +112,7 @@ conda env config vars set MY_VAR=weee
 
 #### `conda env config vars unset`
 
-
-
 取消设置 conda 环境的环境变量。
-
-
 
 ```
 usage: conda env config vars unset [-h] [-n ENVIRONMENT | -p PATH] [vars ...]
@@ -164,31 +134,19 @@ usage: conda env config vars unset [-h] [-n ENVIRONMENT | -p PATH] [vars ...]
 
      环境位置的完整路径（即前缀）。
 
-
-
 例子：
 
 ```
 conda env config vars unset MY_VAR
 ```
 
-
-
-
-
-
-
 ## `conda env create`
-
-
 
 根据环境定义文件创建环境。
 
 如果使用environment.yml文件（默认），您可以在文件的第一行使用“name:envname”命名环境，或者可以使用-n/--name参数在CLI命令中指定环境名称。 CLI 中指定的名称将覆盖在environment.yml 文件中指定的名称。
 
 除非您位于包含环境定义文件的目录中，否则请使用 -f 指定要使用的环境定义文件的文件路径。
-
-
 
 ```
 usage: conda env create [-h] [-f FILE] [-n ENVIRONMENT | -p PATH] [-C] [-k]
@@ -231,7 +189,7 @@ usage: conda env create [-h] [-f FILE] [-n ENVIRONMENT | -p PATH] [-C] [-k]
 
      环境位置的完整路径（即前缀）。
 
-3. **网络选项**
+4. **网络选项**
 
    - -C, --use-index-cache
 
@@ -244,7 +202,6 @@ usage: conda env create [-h] [-f FILE] [-n ENVIRONMENT | -p PATH] [-C] [-k]
    - --offline
 
      离线模式。不要连接到互联网。
-     
 
 5. **输出、提示和流程控制选项**
 
@@ -268,8 +225,8 @@ usage: conda env create [-h] [-f FILE] [-n ENVIRONMENT | -p PATH] [-C] [-k]
 
      自动将任何确认值设置为“是”。不会要求用户确认任何添加、删除、备份等操作。
 
-
 例子：
+
 ```
 conda env create
 conda env create -n envname
@@ -279,15 +236,9 @@ conda env create -f /path/to/requirements.txt -n envname
 conda env create -f /path/to/requirements.txt -p /home/user/envname
 ```
 
-
-
 ## `conda env export`
 
-
-
 导出给定环境
-
-
 
 ```
 usage: conda env export [-h] [-c CHANNEL] [--override-channels]
@@ -347,16 +298,13 @@ usage: conda env export [-h] [-c CHANNEL] [--override-channels]
      不显示进度条。
 
 例子：
+
 ```
 conda export
 conda export --file FILE_NAME
 ```
 
-
-
 ## `conda env list`
-
-
 
 列出 Conda 环境。
 
@@ -378,27 +326,18 @@ usage: conda env list [-h] [--json] [-v] [-q]
 
      不显示进度条。
 
-
-
 例子：
+
 ```
 conda env list
 conda env list --json
 ```
 
-
-
-
-
 ## `conda env remove`
-
-
 
 删除环境。
 
 删除提供的环境。您必须先停用现有环境，然后才能将其删除。
-
-
 
 ```
 usage: conda env remove [-h] [-n ENVIRONMENT | -p PATH] [--solver {classic}]
@@ -443,18 +382,14 @@ usage: conda env remove [-h] [-n ENVIRONMENT | -p PATH] [--solver {classic}]
 
      自动将任何确认值设置为“是”。不会要求用户确认任何添加、删除、备份等操作。
 
-
 例子：
+
 ```
 conda env remove --name FOO
 conda env remove -n FOO
 ```
 
-
-
 ## `conda env update`
-
-
 
 根据环境文件更新当前环境。
 
@@ -484,7 +419,7 @@ usage: conda env update [-h] [-n ENVIRONMENT | -p PATH] [-f FILE] [--prune]
 
      可能的选择：经典选择要使用的解算器后端。
 
-2. **目标环境规范**
+3. **目标环境规范**
 
    - -n, --name
 
@@ -494,7 +429,7 @@ usage: conda env update [-h] [-n ENVIRONMENT | -p PATH] [-f FILE] [--prune]
 
      环境位置的完整路径（即前缀）。
 
-3. **输出、提示和流程控制选项**
+4. **输出、提示和流程控制选项**
 
    - --json
 
@@ -508,8 +443,8 @@ usage: conda env update [-h] [-n ENVIRONMENT | -p PATH] [-f FILE] [--prune]
 
      不显示进度条。
 
-
 例子：
+
 ```
 conda env update
 conda env update -n=foo

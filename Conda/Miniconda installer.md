@@ -1,5 +1,5 @@
-
 # 安装Miniconda
+
 [Miniconda下载官网](https://docs.conda.io/en/latest/miniconda.html)
 
 ### 下载Miniconda到linux
@@ -8,12 +8,6 @@
 # wget + url，中间可以加+c参数，断点续传
 wget https://
 ```
-
-
-
-
-
-
 
 ### 安装
 
@@ -53,10 +47,7 @@ bash packagename.sh
 source ~/.bashrc
 ```
 
-
-
 # Conda
-
 
 ### 查看conda版本
 
@@ -89,7 +80,7 @@ conda config --add channels <channel_name>
 conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/main/
 conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/pkgs/free/
 conda config --add channels https://mirrors.bfsu.edu.cn/anaconda/cloud/conda-forge/
-conda config --add coannels https://mirrors.bfsu.edu.cn/anaconda/cloud/bioconda/ 
+conda config --add coannels https://mirrors.bfsu.edu.cn/anaconda/cloud/bioconda/
 # 删除频道
 conda config --remove channels <channel_name>
 # 用于设置conda配置文件中的show_channel_urls选项,设置为yes，则在运行conda install等命令时，将显示正在使用的通道的URL

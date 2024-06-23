@@ -1,10 +1,6 @@
 # `conda info`
 
-
-
 显示有关当前 conda 安装的信息。
-
-
 
 ```
 usage: conda info [-h] [--json] [-v] [-q] [-a] [--base] [-e] [-s]
